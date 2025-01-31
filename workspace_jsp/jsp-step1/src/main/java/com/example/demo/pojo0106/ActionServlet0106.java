@@ -106,24 +106,29 @@ public class ActionServlet0106 extends HttpServlet {
       String seperator = "";
       if (result != null) {
         log.info("result type check");
-        /*
-         * if (StringValidator0127.containsColon(result)) {
-         * pageMove = result.split(":"); // pageMove.length = 2
-         * seperator = ":"; // return "redirect:xxx.jsp" ofr "forward:xxx.jsp"
-         * }
-         */
-        log.info("StringValidator0127.isJsonFormat(result)" + StringValidator0127.isJsonFormat(result));
-        if (StringValidator0127.isJspExtension(result)) {
+        if (StringValidator0127.containsColon(result)) {
+        seperator = ":"; // return "redirect:xxx.jsp" ofr "forward:xxx.jsp"
+        }
+        
+        else if (StringValidator0127.isJspExtension(result)) {
           seperator = "jsp";
         } else if (StringValidator0127.isJsonFormat(result)) {
           seperator = "json";
         }
       } // 오라클 DB연동하여 가져온 결과 타입을 분류
 
+      // 조회결과가 없을 때 처리하기
+      else {
+        log.info("조회결과가 없을 때");
+        res.setContentType("text/plain;charset=UTF-8");
+        PrintWriter out = res.getWriter();
+        out.print("조회결과가 없습니다.");
+      }
+
       // separator가 jsp일떄
       if ("jsp".equals(seperator)) {
         // 현재는 리액트로 UI를 처리하고 있어서 해당사항이 없다.
-        log.info("jsp일 때");
+        log.info("jsp페이지로 응답할 때");
 
         // 요청을 받아서 처리한 후 응답페이지 처리하기 - 공통부분(spring기준 - ViewResolver제공)
         // 응답페이지에 대한 정보를 가지고 있는거야?
@@ -146,22 +151,12 @@ public class ActionServlet0106 extends HttpServlet {
         PrintWriter out = res.getWriter();
         out.print(result);
       }
-
-      // 조회결과가 없을 때 - 리액트 쪽에 조회결과가 없습니다 라는 메시지를 보내고 싶다면
-      else {
-        log.info("문자열으로 응답할 때");
-        res.setContentType("text/plain;charset=utf-8");
-        PrintWriter out = res.getWriter();
-        out.print("조회결과가 없습니다");
-      }
-
-      ////////////////////////////////// [ViewResolver]//////////////////////////////////
+      /////////////////////////// [ ViewResolver ] ///////////////////////////
 
     } catch (Exception e) {
-      log.info(e.toString()); // 에러가 발생하면 예외이름을 출력하시오. - 이름으로 예외를 조회, 검색
+      log.info(e.toString()); // 예외가 발생하면 예외이름을 출력하시오. - 이름으로 예외를 조회, 검색
     }
-    // upmu[1] -> OrderController, BoardController, NoticeController,
-    // MemberController
+    // upmu[1] -> OrderController, BoardController, NoticeController, MemberController
     // upmu[2] -> boardList.do.jsp -> ko는 빼고, jsp붙여야 하므로 배열에 담을 때 ko는 제거할 것
   }
 

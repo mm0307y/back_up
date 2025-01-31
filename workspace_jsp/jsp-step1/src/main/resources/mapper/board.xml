@@ -2,52 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.BoardMapper">
 <insert id="boardInsert" parameterType="map">
-	INSERT INTO react_board (b_no, b_title, email, b_content, b_hit, b_date, b_file)
-		VALUES (SEQ_REACTBOARD_NO.NEXTVAL, #{b_title}, #{email}, #{b_content}, 0, to_char(sysdate, 'YYYY-MM-DD'), #{b_file})
+	INSERT INTO react_board (b_no, b_title, email, b_content, b_hit, b_date
+		<if test='b_file !=null and b_file !=""'>,b_file</if>)
+		VALUES (SEQ_REACTBOARD_NO.NEXTVAL, #{b_title}, #{email}, #{b_content}, 0, to_char(sysdate, 'YYYY-MM-DD')
+		<if test='b_file !=null and b_file !=""'>,#{b_file}</if>)
 </insert>
 
 <delete id="boardDelete" parameterType="map">
-  delete from react_board where b_no = #{value}
+        DELETE FROM react_board WHERE b_no = #{b_no}
 </delete>
 
 <update id="boardUpdate" parameterType="map">
-  update react_board
-    set b_title = #{b_title}
+        UPDATE react_board
+               SET b_title = #{b_title}
         ,email = #{email}
         ,b_content = #{b_content}
-        ,b_file = #{b_file}
-    where b_no = #{b_no}
+        <if test='b_file !=null and b_file !=""'>
+				,b_file = #{b_file}
+				</if>
+        WHERE b_no = #{b_no}
+</update>
+<update id="hitCount" parameterType="map">
+	UPDATE react_board
+		SET b_hit = b_hit + 1
+	WHERE b_no =#{b_no};
 </update>
 
 	<select id="boardList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT rb.b_no, rb.b_title, rb.b_content, rb.b_hit, rb.b_date, mem.mem_name
     	FROM react_board rb, member250120 mem 
     	WHERE rb.email = mem.mem_email
-		<!--
-			Map<String,Object> pmap = new HashMap<>();
-			pmap.put("cb_search", "b_title or b_content or nickname")
-			pmap.put("keyword", keyword)
-		-->
-		<if test='cb_search!=null and cb_search.equals("b_title")'>
+		<if test='b_no > 0'>
+			AND rb.b_no = #{b_no}
+		</if>
+		<if test='gubun!=null and gubun.equals("b_title")'>
 			AND rb.b_title LIKE '%'||#{keyword}||'%'
 		</if>
-		<if test='cb_search!=null and cb_search.equals("b_content")'>
+		<if test='gubun!=null and gubun.equals("b_content")'>
 			AND rb.b_content LIKE '%'||#{keyword}||'%'
 		</if>
-		<if test='cb_search!=null and cb_search.equals("nickname")'>
-			AND rm.nickname LIKE '%'||#{keyword}||'%'
+		<if test='gubun!=null and gubun.equals("mem_nickname")'>
+			AND mem.mem_nickname LIKE '%'||#{keyword}||'%'
 		</if>
+		order by b_no desc
 	</select>
 
-		<!-- ========================================= [[ 댓글 처리 SQL ]] ============================================================= -->
+		<!--=========================[[ 댓글 처리 SQL ]] ========================-->
 		
 	<select id="commentList" parameterType="map" resultType="map">
-		SELECT bc_no, bc_comment, bc_date, b_no
-			FROM react_board_comment
+		SELECT bcom.bc_no, bcom.email, bcom.bc_comment, bcom.bc_date
+        ,  bcom.b_no, me.mem_nickname
+	FROM react_board_comment bcom, member250120 me
+	WHERE bcom.email =  me.mem_email
+		AND bcom.b_no = #{b_no}
 	</select>
 	<insert id="commentInsert" parameterType="map">
-		insert into react_board_comment(bc_no, bc_comment, email, bc_date, b_no)
-		values(SEQ_REACTBOARDCOMMENT.nextval, #{bc_comment}, #{email}, to_char(sysdate, 'YYYY-MM-DD'), #{b_no})
+	INSERT into react_board_comment(bc_no, bc_comment, email, bc_date, b_no)
+	VALUES(SEQ_REACTBOARDCOMMENT.nextval, #{bc_comment}, #{email}, to_char(sysdate, 'YYYY-MM-DD'), #{b_no})
 	</insert>
 
 	<update id="commentUpdate" parameterType="map">
@@ -57,8 +68,9 @@
 	WHERE bc_no = #{bc_no}
 	</update>
 	<delete id="commentDelete" parameterType="int">
-		delete from react_board_comment
-		where bc_no = #{value}
+	DELETE FROM react_board_comment
+	 WHERE bc_no = #{value}
 	</delete>
-	<!-- ========================================= [[ 댓글 처리 SQL ]] ============================================================= -->
+<!--=========================[[ 댓글 처리 SQL ]] ========================-->
+
 </mapper>

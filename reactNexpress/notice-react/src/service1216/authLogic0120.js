@@ -1,17 +1,10 @@
-import {
-  createUserWithEmailAndPassword,
-  EmailAuthProvider,
-  getAuth,
-  GoogleAuthProvider,
-  sendEmailVerification,
-  signInWithPopup,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, EmailAuthProvider, getAuth, GoogleAuthProvider, sendEmailVerification, signInWithPopup } from "firebase/auth";
 
 class AuthLogic0120 {
   // 생성자 함수 선언하기 - 초기화
   constructor() {
-    this.auth = getAuth();
-    this.googleProvider = new GoogleAuthProvider();
+    this.auth = getAuth()
+    this.googleProvider = new GoogleAuthProvider()
   }
 
   // 생성자 함수에 초기화 된 정보를 외부에서 참조할 때 사용할 함수 선언
@@ -92,11 +85,11 @@ export const linkEmail = (auth, user) => {
 
 export const signupEmail = (auth, user) => {
   console.log(user);
-  return new Promise((resovle, reject) => {
+  return new Promise((resolve, reject) => {
     createUserWithEmailAndPassword(auth.user.email, user.password)
       .then((userCredential) => {
         sendEmail(userCredential.user).then(() => {
-          resovle(userCredential.user.uid);
+          resolve(userCredential.user.uid);
         });
       })
       .catch((e) => reject(e));
@@ -104,10 +97,10 @@ export const signupEmail = (auth, user) => {
 }; // end of signupEmail
 
 export const sendEmail = (user) => {
-  return new Promise((resovle, reject) => {
+  return new Promise((resolve, reject) => {
     sendEmailVerification(user)
       .then(() => {
-        resovle("해당 이메일에서 인증메시지를 확인후 다시 로그인 해주세요.");
+        resolve("해당 이메일에서 인증메시지를 확인후 다시 로그인 해주세요.")
       })
       .catch((e) => reject(e + "인증 메일 오류 입니다."));
   });

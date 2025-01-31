@@ -30,6 +30,9 @@ import FindEmailPage0123 from "./components1216/pages1216/auth0120/FindEmailPage
 import ResetPwdPage0123 from "./components1216/pages1216/auth0120/ResetPwdPage0123";
 import ReBoardDBList0124 from "./components1216/reboard0124/ReBoardDBList0124";
 import MyPage0127 from "./components1216/pages1216/auth0120/MyPage0127";
+import ReBoardDBDetail0131 from "./components1216/reboard0124/ReBoardDBDetail0131";
+import ReBoardDBUpdate0131 from "./components1216/reboard0124/ReBoardDBUpdate0131";
+import ReBoardDBWrite0131 from "./components1216/reboard0124/ReBoardDBWrite0131";
 
 // App이 실행될 때 로그인 상태인지를 체크하기
 const App = () => {
@@ -116,8 +119,12 @@ const App = () => {
           <Route path="/auth/emailVerified" exact={true} element={<EmailVerifiedPage0122 />} />
           <Route path="/auth/findEmail" exact={true} element={<FindEmailPage0123 />} />
           <Route path="/auth/resetPwd" exact={true} element={<ResetPwdPage0123 />} />
-          {/* 스프링 게시판 */}
+          {/* 스프링 게시판 및 POJO */}
           <Route path="/reboard" exact={true} element={<ReBoardDBList0124 />} />
+          <Route path="/reboard/:b_no" exact={true} element={<ReBoardDBDetail0131 />} />
+          <Route path="/reboard/update/:b_no" exact={true} element={<ReBoardDBUpdate0131 />} />
+          <Route path="/reboard/write" exact={true} element={<ReBoardDBWrite0131 />} />
+          {/* NodeJS 게시판 */}
           <Route path="/board" exact={true} element={<BoardDBList1226 />} />
           <Route path="/board/write" exact={true} element={<BoardDBWrite1226 />} />
           <Route path="/board/:b_no" exact={true} element={<BoardDBDetail1226 />} />

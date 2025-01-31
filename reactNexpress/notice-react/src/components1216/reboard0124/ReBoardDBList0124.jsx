@@ -1,13 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Header1216 from '../include1216/Header1216'
+import { useEffect, useState } from 'react'
 import Footer1216 from '../include1216/Footer1216'
 import { useNavigate } from 'react-router'
 import { reBoardListDB } from '../../service1216/dbLogic1218'
+import ReBoardDBItem0131 from './ReBoardDBItem0131'
 
 const ReBoardDBList0124 = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [boards, setBoards] = useState([])
-  // 목록 페이지를 열자마자 DB를 경유하는 코드는 어디서 어떻게 작성할까?
+
+  // 현재 내가 바라보는 페이지 정보
+  const [currentPage, setCurrentPage] = useState(1)
+
+  // 한 페이지당 항목 수 
+  const itemsPerPage = 5
+
+  // 현재 페이지 출력 될 item 계산 - 이 값만큼만 반복문 돌리기
+  const currentItems = boards.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+
+  // 페이징 처리 결과에 따라서 화면을 매번 재랜더링 하기
+  useEffect(() => {
+    // URL에서 현재 페이지 번호 가져오기
+    const queryParams = new URLSearchParams(window.location.search)
+    const page = queryParams.get('page')
+
+    // 자바 스크립트에서는 0이면 false 아니면 다 true
+    // 쿼리스트링으로 넘어노는 값은 모두 다 String -> int로 변환 하기
+    if (page) setCurrentPage(parseInt(page))
+  }, [window.location.search])
+
+  // 목록 페이지를 열자 마자 DB를 경유하는 코드는 어디서 어떻게 작성할까?
   useEffect(() => {
     const asyncDB = async () => {
       const board = { gubun: null, keyword: null }
@@ -66,8 +89,8 @@ const ReBoardDBList0124 = () => {
           {/* props로 넘어온 상태값이 빈 깡통이면 실행하지 않기 */}
           <tbody>
             {
-              boards.map((board, index) => (
-                <li>{board.b_title}</li>
+              Array.isArray(currentItems) && currentItems.map((board, index) => (
+                <ReBoardDBItem0131 key={index} board={board} page={currentPage} />
               ))}
           </tbody>
           {/* 데이터셋 연동하기 */}

@@ -1,19 +1,51 @@
 import axios from "axios";
 
+// 게시글 상세보기 구현
+export const reBoardDetailDB = (b_no) => {
+  console.log(b_no)
+  return new Promise((resolve, reject) => {
+    try {
+      const res = axios({
+        method: "get",
+        url: process.env.REACT_APP_SPRING_IP + "pojo/board/boardDetail.do?b_no=" + b_no,
+      });
+      resolve(res)
+    } catch (error) {
+      reject(error) 
+    }
+  })
+} // end of reBoardDetailDB
+
+// 게시글 삭제하기 구현
+export const reBoardDeleteDB = (b_no) => {
+  console.log(b_no)
+  return new Promise((resolve, reject) => {
+    try {
+      const res = axios({
+        method: "delete",
+        uri: process.env.REACT_APP_SPRING_IP + "pojo/board/boardDelete.do?b_no=" + b_no
+      });
+      resolve(res)
+    } catch (error) {
+      reject(error)
+    }
+  })
+} // end of reBoardDeleteDB
+
 // 게시글 목록 가져오기 구현
 export const reBoardListDB = (params) => {
   //파라미터 값을 출력해 보기 - SELECT * FROM notice WHERE n_content like '%'||?||'%'
-  console.log(params);
+  console.log(params)
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
         method: "get",
-        url: process.env.REACT_APP_SPRING_IP + "pojo/board/boardlist.do",
+        url: process.env.REACT_APP_SPRING_IP + "pojo/board/boardList.do",
         params: params,
       });
       resolve(response) //성공했을 때
     } catch (error) {
-      reject(error) //실패했을 때
+      reject(error); //실패했을 때
     } //end of try..catch
   });
 }; //// end of boardListDB

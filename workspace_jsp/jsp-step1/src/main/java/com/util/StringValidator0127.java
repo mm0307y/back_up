@@ -5,14 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class StringValidator0127 {
   public static boolean containsColon(String input) {
-    if (input == null)
-      return false;
-    return input.contains(":");
+    if (input == null) return false;
+    // 25년 01월 31일 - 응답이 json포맷인 경우에도 콜론이 들어있다. - 필터링을 해야 한다.
+    // 공통코드가 변경되었을 때 내 소스에 사이드 이펙트가 발생되는지 여부 체크 (담당)
+    return input.contains("redirect:") || input.contains("forward:");
   } // 처리 결과에 콜론이 포함이 되었는지 유무 체크
 
   public static boolean isJspExtension(String input) {
-    if (input == null)
-      return false;
+    if (input == null) return false;
     return input.endsWith(".jsp");
   } // 확장자에 .jjp이 포함이 되었는지 유무 체크
 
