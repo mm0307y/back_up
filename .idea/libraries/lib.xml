@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/workspace_java/basic1/lib/json-20210307.jar!/" />
+      <root url="jar://$PROJECT_DIR$/workspace_java/basic1/lib/lombok-1.18.34.jar!/" />
+      <root url="jar://$PROJECT_DIR$/workspace_java/basic1/lib/okio-1.17.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/workspace_java/basic1/lib/gson-2.8.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/workspace_java/basic1/lib/mybatis-3.5.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/workspace_java/basic1/lib/okhttp-3.14.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

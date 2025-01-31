@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <div id="root"></div>
+  <script type="text/babel">
+    // 상태값이 변할 때 마다 렌더링이 되도록 하고 싶다면
+    // useState훅을 사용하세요.
+    
+    const rootElement = document.querySelector('#root')
+    const UseState1 = () => {
+      // 선언부 - 변수선언 및 함수 선언
+      let nums = [1, 2, 3]
+      // ES6 - 변수선언시 예약어 const, let (호이스팅 이슈 때문에 var나 예전 코드는 안쓴다.)
+      let result1 = 0 // 일반 변수 선언 - 주의 : const사용하지 말것 (함수를 선언할때 사용하는거라 변수 선언할때 사용하면 안된다.)
+      const [result2, setResult2] = React.useState(0)
+      const plus = () => {
+        result1++
+        setResult2(result2 + 1)
+      }
+      return (
+        <>
+          <h1>컴포넌트 상태 관찰</h1>
+          <button onClick={plus}>더하기</button>
+          <h2>덤셋 결과 출력{result1}</h2>
+          <h2>덤셋 결과 출력{result2}</h2>
+          <hr />
+          {nums.map((num, index) => (
+            <h3 key={index}>{num}</h3>
+          ))}
+        </>
+      )
+
+    }
+
+    const App = () => {
+      return (
+        <>
+          <UseState1 />
+        </>
+      )
+    }
+    ReactDOM.createRoot(rootElement).render(<App />)
+  </script>
+</body>
+
+</html>

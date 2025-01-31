@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .DIV1 {
+      background-color: rgb(255, 210, 249);
+      width: 800px;
+      height: 150px;
+    }
+    
+    .DIV2 {
+      background-color: blueviolet;
+      width: 600px;
+      height: 100px;
+    }
+    
+    .DIV3 {
+      background-color: rgb(150, 150, 230);
+      width: 400px;
+      height: 70px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="DIV1">
+    DIV1
+    <div class="DIV2">
+      DIV2
+      <div class="DIV3">DIV3</div>
+    </div>
+  </div>
+  <script>
+    const divs = document.querySelectorAll("div");
+    console.log(divs)
+
+    const clickEvent = (e) => {
+      console.log(e.currentTarget.className);
+    };
+
+    divs.forEach((div) => {
+      div.addEventListener("click", clickEvent, { capture: true });
+    });
+  </script>
+</body>
+
+</html>

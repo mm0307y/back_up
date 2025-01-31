@@ -1,0 +1,73 @@
+<div class="row mt-5 justify-content-end">
+  <div class="col-6 col-md-4">
+    <form name="frm">
+      <div class="input-group">
+        <input type="text" name="query" class="form-control" value="자바" />
+        <button class="btn btn-danger">검색</button>
+      </div>
+    </form>
+  </div>
+</div>
+<hr />
+
+<!-- 카카오 도서검색 결과를 출력할 공간 마련해둠 -->
+<div class="row" id="list_book"></div>
+<!-- 카카오 도서검색 결과를 출력할 공간 마련해둠 -->
+
+<div class="text-center mt-2">
+  <button class="btn btn-primary btn-sm px-5" id="prev">이전</button>
+  <span id="page" class="px-3">1/10</span>
+  <button class="btn btn-primary btn-sm px-5" id="next">다음</button>
+</div>
+
+<script>
+  //사용자가 입력한 키워드 가져오기
+  let query = $(frm.query).val()
+  let page = 1
+
+  //도서 데이터 가져오기
+  const getList = () => {
+    console.log(`page=${page}, query=${query}`)
+    $.ajax({
+      method: "GET",
+      url: "https://dapi.kakao.com/v3/search/book?target=title",
+      headers: { Authorization: "KakaoAK 6b10a8106270f172344447e5cec8953b" },
+      data: { query: query, page: page, size: 30 },
+      dataType: "json",
+      success: function (data) {
+        // console.log(data)
+        // 마지막 페이지 체크
+        let is_end = data.meta.is_end // false 책이 더 있어, true : 마지막 페이지가 맞다.
+        // 검색 가능한 데이터 수
+        let total = data.meta.total_count // 자바의 경우 5006
+        // 마지막 페이지 번호는 얼마야?
+        let last = Math.ceil(total / 10)
+        console.log(`is_end : ${is_end}, total : ${total}, last : ${last}`)
+      }
+    });
+
+  }
+
+  getList()
+  //검색창에서 입력한 책 제목 읽어오기
+  $(frm).on('submit', (e) => {
+    e.preventDefault()
+    query = $(frm.query).val()
+    page = 1
+    getList()
+  })
+</script>
+
+
+<!-- 
+justify-content-end : 내부 요소를 가로 방향으로 끝정렬
+justify-content-center : 내부 요소를 가로 방향으로 중앙 정렬
+
+폼 컨테이너
+col-6 col-md-4
+- 화면의 크기에 따라 열의 너비를 다르게 설정한다.
+1. col-6 : 화면에서 전체의 6/12 너비를 차지한다.
+col-8 : 화면에 전체의 8/12 너비를 차지한다. 전체는 12다.(약 67%)
+2. col-md-6 : 중간화면에서 전체의 6/12 너비를 차지한다.
+3. col-lg-4 : 큰화면에서 전체 4/12 너비
+-->

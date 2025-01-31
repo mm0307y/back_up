@@ -1,0 +1,43 @@
+.videos{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  list-style: none;
+  padding-left: 0;
+  margin: 0; /* 위, 아래, 왼쪽, 오른쪽 전부 다 0 */
+}
+
+.container{
+  width: 100%;
+  padding: 0.2rem;
+}
+
+.video{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  box-shadow: 3px 3px 5px 0px rgba(191, 191, 191, 0.53);
+  transition: transform 250ms ease-in;
+}
+
+.thumbnail{
+  width: 50%;
+  height: 100%;
+}
+
+.video:hover{
+  transform: scale(1.02);
+}
+
+.title,
+.channel{
+  margin: 10px;
+  font-size: 0.8rem;
+}
+
+.channel{
+  font-size: 0.6rem;
+}

@@ -1,0 +1,58 @@
+<div class="row my-5 justify-content-center">
+    <div class="col-8 col-md-6 col-lg-4">
+    <h3 class="text-center mb-5">회원가입</h3>
+    <form id="join" name="frm" method="post">
+        <div class="input-group my-2">
+        <div class="input-group-text">이 메 일</div>
+        <input class="form-control" id="email" name="email" value="tomato@hot.com" />
+        </div>
+        <div class="input-group">
+        <div class="input-group-text">비밀번호</div>
+        <input
+            class="form-control"
+            name="password"
+            type="password"
+            value="12345678"
+        />
+        </div>
+        <div class="my-3">
+        <button class="btn btn-success w-100">회원가입</button>
+        </div>
+        <div class="text-end mt-3"><a href="/login">로그인</a></div>
+    </form>
+    </div>
+</div>
+
+<script type="module">
+    import { app } from "/javascripts/firebase_11_25.js"
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    const auth = getAuth(app)
+    console.log(auth);
+
+// 회원가입을 눌렀을 때 실행한다.
+// submit에 대한 이슈가 있으므로 반드시 e.preventDefault() 호출 할 것 -> 안하면 404에러 발동
+    $(frm).on("submit", (e) => {
+        console.log("회원가입 버튼 클릭")
+        e.preventDefault()
+        // 아래 함수를 호출하기 전에 사용자가 입력한 이메일과 비번을 담기
+        // frm은 form태그의 name값 입니다.
+        let email = $(frm.email).val()
+        let password = $(frm.password).val()
+    
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((response) => { // 구글 처리가 정상적으로 되었다면 파라미터 변수에 내가 응답 메시지를 넣어 놓을께
+                // 회원가입에 성공하면 - createUserWithEmailAndPassword 함수에 인증객체와 이메일과 비번이 일치하면
+                // 내가 응답으롤 메시지를 줄거를 약속할께 - 콜백함수
+                console.log(response)
+                // 회원가입에 성공하면 어디로 가면 될까요? - 로그인
+                location.href = "/login"
+                // ...
+            })
+            .catch((error) => { // 에러가 발생하면 그때 실행된다.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(`${errorCode}, ${errorMessage}`)
+                // ..
+            });
+    })
+</script>

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 42063617,
+    "title": "Upcoming Hardening in PHP",
+    "points": 95,
+    "user": "mmsc",
+    "time": 1730906282,
+    "time_ago": "9 days ago",
+    "comments_count": 11,
+    "type": "link",
+    "url": "https://dustri.org/b/upcoming-hardening-in-php.html",
+    "domain": "dustri.org"
+  },
+  {
+    "id": 42135520,
+    "title": "MomBoard: E-ink display for a parent with amnesia",
+    "points": 1334,
+    "user": "pabs3",
+    "time": 1731586840,
+    "time_ago": "17 hours ago",
+    "comments_count": 158,
+    "type": "link",
+    "url": "https://jan.miksovsky.com/posts/2024/11-12-momboard",
+    "domain": "jan.miksovsky.com"
+  },
+  {
+    "id": 42142790,
+    "title": "Matrix Client Tutorial",
+    "points": 62,
+    "user": "whereistimbo",
+    "time": 1731630413,
+    "time_ago": "5 hours ago",
+    "comments_count": 11,
+    "type": "link",
+    "url": "https://uhoreg.gitlab.io/matrix-tutorial/index.html",
+    "domain": "uhoreg.gitlab.io"
+  }
+]

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <script type="text/babel">
+      const rootElement = document.querySelector('#root')
+      const msg = "Hello React!!"
+      const element = <h2>{msg}</h2>
+      ReactDOM.createRoot(rootElement).render(element)
+    </script>
+  </div>
+</body>
+</html>
+<!-- 
+  ES5같은 하위 버전에서도 동작하도록 바벨을 추가하였다.
+  CDN(Content Delivery network)
+  : 사용자의 지리적 위치가 가까운 서버에서 콘텐츠를 제공한다. 로드시간이 단축된다.
+
+  UNPKG
+  : NPM 레지스토리에 업도로드된 패키지를 브라우저에서 바로 사용할 수 있도록
+  제공되는 CDN입니다.
+-->

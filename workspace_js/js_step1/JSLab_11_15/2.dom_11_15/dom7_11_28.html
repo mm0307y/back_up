@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자바스크립트로 화면 그리기</title>
+</head>
+<body>
+  <script>
+    // 현재 페이지 이름은 dom7_11_28.html이다. 이 파일을 객체로 만들어 준다.
+    // window - document - html
+    // html 파일안에는 css파일과 javascript 파일이 공존할 수 있다.
+    // html 파일을 통해서 화면을 렌더링한다. 이때 css는 일관된 디자인을 적용한다.
+    // 브라우저가 DOM Tree그린다. -> CSSOM그린다. -> Rendering Tree그린다.
+    // 자바 스크립트로 클래슨 선택자나 아아디 선택자에 접근이 가능하다. - 그래서 defer를 사용한다.
+    // html문서는 차례대로 처리가 된다. (1번부터 마지막 라인으로)
+    // 그런데 script태그가 중간에 head에 등장한다. - 지연발생
+    // 백엔드에서 처리할 내용은 우선순위가 화면에 밀린다.
+    window.onload = () =>{
+      // 실행문이 온다. (변수 선언, 제어문 사용 - 반복, 선택문제 - 로직계층)
+      // 자바스크립트로 화면을 그릴 때 DOM(Document Object Model) API를 사용할 수 있다.
+      // 가독성을 떨어진다. - 트리구조가 보이지 않는다.(ul태그 아래 li태그인지, table태그 아래 tr태그인지)
+      // 코드 양은 늘어나더라도 복잡도는 증가하지 않도록 코딩을 해야 한다.
+      // h1태그는 태그이름은 있고 값은 없다.
+      const header = document.createElement("h1")
+      // 텍스트 노드는 태그이름은 없고 값만 있다.
+      // 태그 == 노드 == elemnet
+      const textNode = document.createTextNode("오늘의 날씨")
+
+      // 노드를 연결한다.
+      header.appendChild(textNode)
+      document.body.appendChild(header)
+    }
+  </script>
+  <hr/>
+  <h2>내일의 날씨</h2>
+</body>
+</html>

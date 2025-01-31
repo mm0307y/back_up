@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 처리페이지</title>
+</head>
+<body>
+  <h1>입력된 정보</h1>
+  <strong>아이디 : </strong><span id="display_id"></span>
+  <strong>비빌번호 : </strong><span id="display_pw"></span>
+  <script>
+    // 현재 페이지의 URL의 쿼리스트링을 가져오는 문장 작성하기
+    const queryString = window.location.search
+    console.log(queryString); // ?mem_id=kiwi&mem_pw=123
+    const urlParams = new URLSearchParams(queryString)
+    const user_id = urlParams.get("mem_id")
+    const user_pw = urlParams.get("mem_pw")
+    // console.log(user_id); // kiwi
+    document.querySelector("#display_id").textContent = user_id || "없습니다."
+    document.querySelector("#display_pw").textContent = user_pw || "없습니다."
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        div{
+            width: 250px;
+            height: 250px;
+            background-color: blanchedalmond;
+            margin-bottom: 4px;
+            border-radius: 30%;
+        }
+        .special{
+            background-color: lightsalmon;
+        }
+    </style>
+</head>
+<body>
+    <div></div><!-- div(디브 태그는 블록 형식이라서 나머지 곳은 빈 곳으로 내버려둔다.) -->
+    <div></div>
+    <div></div>
+    <div></div>
+    <div class="special"></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <aside>
+      <btton class="scroll-by">Scroll by 100px(y)</btton>
+      <btton class="scroll-to">Scroll by 100px(y)</btton>
+      <btton class="scroll-into">Scroll by special</btton>
+    </aside>
+    <script>
+        const special = document.querySelector(".special")
+        special.addEventListener("click", (event) => { //arrow function 검색해보기
+            console.log(`clientTo ${event.clientX}, ${event.clientY}`) //page 화면에서 맨 처음부터 x축 좌표, y축 좌표
+            console.log(`page : ${event.pageX}, ${event.pageY}`) //현재 보이는 화면에서 좌표값 계산 출력
+        })
+        /* 현재 위치에서 세로 방향으로 100px만큼 스크롤 합니다. scrollBy(0,100) */
+        const scrollBy = document.querySelector(".scroll-by")
+        /* 현재 상단에서 세로 방향으로 100px만큼 위치를 이동 합니다. scrollTo(0,100) */
+        const scrollTo = document.querySelector(".scroll-to")
+        /* 요소가 화면에 보이도록 스크롤 위치를 자동으로 조정한다. */
+        const scrollInto = document.querySelector(".scroll-into")
+        scrollBy.addEventListener('click', () => {
+          window.scrollBy(0,100)
+        })
+
+        scrollTo.addEventListener('click', () => {
+          window.scrollTO(0,100)
+        })
+
+        scrollInto.addEventListener('click', () => {
+          window.scrollIntoView()
+        })
+    </script>
+</body>
+</html>
+<!--
+선택자의 종류
+1) calss 선택자
+2) id 선택자
+3) 태그(노드) 선택자
+선택자를 접근할 수 있는 API가 있다. - document, 함수이름 : querySelector(클래스 선택자 | id선택자 | 태그 선택자)
+브라우저가 지원하는 내장객체(개체) - document, window - javascript 영역
+
+무엇을 보셨습니까?
+div는 블록 요소입니다. (span은 인라인 요소입니다.)
+블록요소는 크기가 있어서 노드가 차지하는 공간을 제외하는 나머지 여백으로 채운다.
+인라인요소도 display속성을 추가하면 블록요소처럼 사용할 수 있다.
+div*10 으로 사용하면 Emment 단축키로 검색하면 나온다.
+.wrap > .left + .right Emment 단축키 이다.
+
+어제(24..11.12) 코드 중에서 <script src="./main.js" defer><script>
+XXX.html, XXX.js, XXX.css들은 모두 로컬에 다운로드 된 후에 로컬 브라우저가 처리합니다.
+다운로드되는데 시가닝 걸린다.(지연상태가 발생된다.)
+시점의 문제로 인해서 special선택자를 찾을 수 없는 상황이 발생할 수 있다.
+html문서는 절차지향적이라서 위에서 아래로 읽어 갑니다.
+따라서 main.js를 먼저 실행하면 아직 DOM Tree가 그려지지 않은 상태라서
+undefined가 발생합니다.
+-->

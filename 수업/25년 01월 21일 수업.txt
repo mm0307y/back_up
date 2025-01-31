@@ -1,0 +1,97 @@
+2025년 01월 21일 수업 내용 정리
+FLUX 아키텍쳐
+
+1. 단방향 데이터 흐름을 갖는다.
+one-way binding(뷰와 데이터)
+
+뷰 컴포넌트를 구성하는
+
+return (
+    <>
+     <h2>데이터1</h2>
+      <p>데이터2</p>
+    </>
+)
+
+React view에서 사용자가 상호작용을 할 때
+
+<li onClick="newsDetail()">뉴스제목</li>
+
+그 view는 중앙의 dispatcher를 통해 action(요청)을 전파하게 된다.
+
+어플리케이션의
+데이터와 비지니스 로직을 가지고 있는
+store는 action이 전파되면 이 action에 영향이 있는 모든 view를 갱신한다.
+
+값이 바뀌면 렌더링이 일어난다.
+
+const name
+
+const [name, setNeme] = useState('default')
+
+useState훅은 어디에 선언하나? - 함수안에
+
+함수명 대문자로 시작되면 컴포넌트
+
+<함수명/>
+훅에 상태값이 변하면 그 때마다 새로 렌더링이 일어난다.
+App은 함수이다.
+함수인데 태그로 사용된다.
+함수도 주소번지를 갖는다.
+새로그려진다. 함수가 새로 만들어진다.
+함수의 주소번지가 바뀐다.
+화면도 변한다.
+리액에서는 비교 알고리즘을 제공한다.
+이전 DOM과 현재 DOM비교
+DOM은 태그 -> 태그 안에 값이 변한다. | 안변한다.
+태그 안에 texnode가 변하면 화면도 새로 그린다.
+변했나? 안 변했나? 를 비교해야 한다.
+DOM이 유니크 해야 비교가 가능하다.
+<h1 id=h1></h1>
+<h1 id=h1></h1>
+const App = () =>{
+  const [name, setNeme] = useState('default')
+  useEffect (() => {
+    setName('이순신') 
+}, [name])
+return(
+    <>
+       <span>{name}</span>
+    </>
+  )
+}
+
+FLUX 아키텍쳐에서는
+상태값의 변화가 필요할 때 절대로 view에 직접 전달하지 않는다.
+
+의존성이 낮다.
+독립적이다. - 단위테스트 - 통합테스트
+
+아키텍쳐와 프레임워크 공통점은 의존성을 낮춘다.
+절대로 직접 하지 않는다.
+
+action - 시그널, 요청 전달 - view
+
+
+2025년 01월 21일 화요일 작업 지시서
+구글로 로그인한 경우 또는 카카오 로그인을 한 경우에는
+오라클 서버에 등록된 회원집합에 비교하여 존재하지 않는 회원인 경우
+회원가입을 진행한다.
+
+CREATE TABLE SCOTT.MEMBER250120
+(
+  MEM_NO        NUMBER(5), pk - 보통 숫자로 처리한다. 검색속도 향상
+  MEM_UID       VARCHAR2(50 BYTE), - 소셜 로그인시에 업체가 발급하는 고유식별자 값이다.
+  MEM_PW        VARCHAR2(10 BYTE), - 비밀번호
+  MEM_NAME      VARCHAR2(30 BYTE), - 이름
+  MEM_NICKNAME  VARCHAR2(30 BYTE), - 닉네임
+  MEM_EMAIL     VARCHAR2(20 BYTE), - 이메일 - 비밀번호를 분실했을 때 - 구글 서비스 지원
+  MEM_TEL       VARCHAR2(20 BYTE), - 핸드폰 번호
+  MEM_GENDER    VARCHAR2(10 BYTE), - 성별
+  MEM_BIRTHDAY  VARCHAR2(30 BYTE), - 생년월일 - 달력, 날짜처리
+  MEM_ZIPCODE   VARCHAR2(6 BYTE), - 카카오 우편번호 검색 서비스 - 외부 라이브러리 - CORS, 요청URL, redirect_URL
+  MEM_ADDR      VARCHAR2(100 BYTE), - 주소
+  MEM_ADDR_DTL  VARCHAR2(20 BYTE), - 상세 주소
+  MEM_STATUS    VARCHAR2(20 BYTE), - 0이면 일반회원, 1이면 코치회원
+  MEM_AUTH      VARCHAR2(20 BYTE) - 인가 - 등급
+)

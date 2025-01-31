@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <div id="root"></div>
+  <script type="text/babel">
+    const rootElement = document.querySelector("#root")
+    const Counter = () => {
+      // 상태 선언 : count의 초기값은 0
+      const [count, setCount] = React.useState(0)
+      return (
+        <>
+          <h1>Counter:{count}</h1>
+          <button onClick={() => setCount(count + 1)}>증가</button>
+          <button onClick={() => setCount(count - 1)}>감소</button>
+          <button onClick={() => setCount(0)}>초기화</button>
+        </>
+      )
+    } // end of Counter함수 - UI컴포넌트 사용한다. - 컴포넌트안에 상태 값이 존재한다.
+
+    const App = () => {
+      return (
+        <Counter />
+      )
+    }
+
+    ReactDOM.createRoot(rootElement).render(<App />)
+  </script>
+
+</body>
+
+</html>

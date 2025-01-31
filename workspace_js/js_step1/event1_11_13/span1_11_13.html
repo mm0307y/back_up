@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        .special{
+            color: aqua;
+        }
+        /* 
+            span태그는 인라인 요소라서 자체 크기가 없다. 화면에 안보인다. 그래서 뭐라도 줘야 한다.
+            span은 width와 height 적용되지 않습니다.
+            스타일에 display속성을 사용하시면 span도 블록요소처럼 동작하게 할 수 있다.
+        */
+        span{
+            /* display: inline-block; */
+            height: 250px;
+            width: 250px;
+            background-color: cadetblue;
+            border-radius: 30%;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <span class="special">와다다</span>
+    <span>다다</span>
+    <span>다다</span>
+    <span>다다</span>
+    <span>눈 싸움</span>
+    <span>한 판을</span>
+    <span>버린다.</span>
+    <span>와다다</span>
+    <span>다다</span>
+    <span>그 아가씨 웃었어~~</span>
+</body>
+</html>

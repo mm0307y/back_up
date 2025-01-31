@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자바스크립트로 화면 그리기</title>
+</head>
+<body>
+  <script>
+    // 자바스크립트로 화면을 그릴 수 있다. - 자바도 가능하다.
+    // 자바에서 제공하는 print함수를 이용한다면 브라우저에 쓰기가 가능하다.
+    // 가능하다는 것이지 효과적이다 라는 것은 아니다.
+
+    let mem_id = "kiwi"
+    let mem_pw = "111"
+    // 아이디나 비번등은 오라클 서버에서 가져오거나 또는 firebase, kakao서버로 부터
+    // Handlebars
+    document.write("<h1>오늘의 날씨</h1>")
+    document.write("<table border='1'>")
+    document.write("<tr><td>아이디</td><td>비밀번호</td></tr>")
+    for(let i = 0; i< 10; i++){
+      document.write("<tr><td>"+mem_id+"</td><td>"+mem_pw+"</td></tr>")
+      document.write("<tr><td>apple</td><td>124</td></tr>")
+
+    }
+    document.write("</table>")
+  </script>
+  <h2>내일의 날씨</h2>
+  <hr/>
+</body>
+</html>

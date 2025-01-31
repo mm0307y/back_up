@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 
+    밑에 script태그 안에 있는 링크들은 리액트 프로젝트가 아닌 곳에서 실습하기 위해서 추가하였다.
+    CDN 방식 - 로컬 PC 캐쉬 메모리를 사용한다. - 시스템 사용 발생 - 속도가 느리다.
+    unpkg방식 - 네트워크를 통해 객체 주입(원격객체를 사용한다.) - 속도향상
+  -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- 
+    ES5같은 버전에서도 동작하도록 지원 받기 위해서 바벨도 주입 받았다.
+  -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    // 컴포넌트는 함수이다.
+    // 함수인데 태그로 사용이 가능하다.
+    // 반드시 대문자로 시작해야 한다. - 기존태그와 구분
+    // 두번째는 반드시 파라미터로 props로 묶어줘야 한다.({}사용할 것)
+    const rootElement = document.querySelector('#root')
+    const Hamsu = ({ title, description, children }) => (
+      <>
+        <h1>{title}</h1>
+        <p>{description}</p>
+        {/* children이 먹힌다는 건 JSX라는 증거이다. */}
+        {children}
+      </>
+    )
+
+    const Nice = () => <h3>누가 돈줘!!!! 제발!!!</h3>
+    const element = (
+      <>
+        <Hamsu title="집보내줘" description="쉬고싶다.">
+          <Nice />
+          <Nice />
+          <Nice />
+        </Hamsu> {/* "Java", "객체지향 프로그래밍" */}
+        <Hamsu title='엄청난 부자가' description="2조정도 준다고하면" /> {/* "React", "프로튼엔드 라이브러리" */}
+        <Hamsu title='얼마나' description="좋을까" /> {/* "Oracle", "관계지향형데이터베이스" */}
+      </>
+    )
+    ReactDOM.createRoot(rootElement).render(element)
+  </script>
+</body>
+
+</html>

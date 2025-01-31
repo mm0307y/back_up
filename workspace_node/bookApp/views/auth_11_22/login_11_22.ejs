@@ -1,0 +1,60 @@
+<div class="row my-5 justify-content-center">
+  <div class="col-8 col-md-6 col-lg-4">
+    <h3 class="text-center mb-5">로그인</h3>
+    <form name="frm" method="post">
+      <div class="input-group my-2">
+        <div class="input-group-text">이 메 일</div>
+        <input class="form-control" name="email" value="tomato@hot.com" />
+      </div>
+      <div class="input-group">
+        <div class="input-group-text">비밀번호</div>
+        <input
+          class="form-control"
+          name="password"
+          type="password"
+          value="12345678"
+        />
+      </div>
+      <div class="my-3">
+        <button class="btn btn-success w-100">로그인</button>
+      </div>
+      <div class="text-end mt-3"><a href="/users/join">회원가입</a></div>
+    </form>
+  </div>
+</div>
+
+<script type="module">
+  import { app } from "/javascripts/firebase_11_25.js"
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+  const auth = getAuth(app)
+  // console.log(auth);
+  $(frm).on("submit", (e) => {
+    e.preventDefault()
+    let email = $(frm.email).val()
+    let password = $(frm.password).val()
+    console.log(`${email}, ${password}`)
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((data) => {
+        // 요청이 정상이면 서버로 부터 response변수에 정보를 돌려받는다. - 콜백
+        // Signed in
+        console.log(response)
+        console.log(`uid ===> ${data.user.uid}`)
+        console.log(`email ===> ${data.user.email}`)
+        localStorage.setItem("email", data.user.email)
+        localStorage.setItem("uid", data.user.uid)
+
+        //로그인 성공하면 메인페이지로 이동하기
+        location.href = "/"
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      }); //// end of signInWithEmailAndPassword 호출
+    // 구글에서 구현한 메서드를 호출하는 것이다.
+    // 호출할 때 파라미터로 세 개를 넘겨줘야 한다.
+    // @praram1 - auth - 인증과 관련된 필요한 값이 들어있다.
+    // 
+  })
+</script>

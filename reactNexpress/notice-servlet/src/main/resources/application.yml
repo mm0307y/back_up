@@ -1,0 +1,4 @@
+server:
+  tomcat:
+    additional-tld-skip-pattenrs: "*.jar"
+  port: 8000

@@ -1,0 +1,123 @@
+2025년 01월 27일 수업 내용 정리
+
+POJO & Spring Boot (전자 정부 프레임워크 - 스프링기반 - spring-core)
+
+POJO는 request와 response에 의존적인 프레임워크이다.
+객체에 대한 자원관리를 개발자가 해야한다.
+
+Spring Boot는 request와 reponse를 사용하지 않고도
+웹 애플리케이션을 구현할 수 있다.
+더 이상은 서블릿에 의존적이지 않다.
+
+잘 되어 있다. - 제공되는 것이 많다. - annotation, 파라미터로도 제공된다.
+깊게 알지 않아도... - 주니어와 시니어 사이의 갭차를 느끼기 싫다.
+
+제공이 된다. - 자원 관리도 해준다. - BeanFactory, ApplicationContext
+BeanFactory - spring-beans.jar
+ApplicationContext - spring-context.jar
+객체에 대한 라이프사이클 관리를  해준다.
+init() - serivce() - destroy()
+
+BeanFactory < ApplictionContext, 자원 관리를 해준다.
+
+annotation을 이용하면 자동으로 해준다.
+
+문제해결 - 예외상황, 이종간에 연계(연동)
+이종간에 연동하기에서는 늘 예외상황에 놓일 수 있다.
+3000번 과  8000번 - 문제점) 쿠키공유가 불가하다, Session공유가 불가하다.
+
+리액트 - 서블릿 (POJO)
+리액트 - 스프링 
+
+웹사이트에 요청하는 순간부터 요청이나 응답의 반복된다.
+요청객체 - HttpServletRequest
+응답객체 - HttpServletReponse
+
+웹 브라우저에서 URL을 입력하여
+웹 페이지(jsp(자바 서버 페이지), servlet(자바와 어플이케이션))를 요청하고 URL을 통해서 메서드를 분리해야 한다. - 업무정의 - 재고관리, 주문관리,
+반품관리 등등, 하나의 클래스로 합치면 소스는 하나라서 좋을 것 같지만 양이 많아지고, 복잡도가 증가하고, 재사용성이 떨어진다.
+URL패턴에서 업무에 대한 이름과 메서드 이름을 분리해야 한다.
+upmu[0] - 업무이름 OrderController, PriceController, MemberController
+upmu[1] - 
+select
+  from
+where 상품이름 = ?
+  and 주문한 날짜 = 날짜 정보
+주문조회 : orderList(HttpServletRequest req, HttpSerletResponse res), 조건검색한 결과를 응답으로 내보낸다.(jsp, json, 문자열)
+
+insert into order(ord_no, ord_data, ...) values(값1, 값2, 값3, ...)
+주문등록 : orderInsert(HttpServletRequest req, HttpSerletResponse res)
+
+주문수정 : orderUpdate(HttpServletRequest req, HttpSerletResponse res)
+
+주문삭제 : orderDelete(HttpServletRequest req, HttpSerletResponse res)
+
+
+사용자가 입력한 값을 듣기 - request.getParameter("mem_id) : String
+누가 언제 왜 request를 제공하지?
+
+요청은 누가 받아주나요?
+1. jsp가 받는  경우 - 모델1(jsp안에 java코드를 작성한다. - 공통코드가 분리가 안된다. - 재사용성이 떨어진다.
+- 일과처리가 안된다. - 반복되는 코드가 발생한다.)
+2. 서블릿이 받는 경우 - 모델2(MVC)
+화면과 로직은 분리되어야 한다.
+
+JAVA와 EE와 웹 설계 규약
+1. 서블릿
+: 자바를 이요하여 웹에서 실행되는 프로그램을 작성하는 기술
+: 서블릿도 자바 클래스 형태의 웹 어플리케이션을 말한다.
+
+2. JSP
+: 자바로 서버페이지를 작성한다.
+: HTML, CSS, JavaScript + JAVA 섞어쓰기
+
+3. 서블릿과 JSP
+: 결국 동일한 역할을 한다. (JSP : View, jsp가 클래스 이름은 아니다. 인스턴ㄴ스화를 직접 할 수 없다. - 재사용할 수 없다.)
+: jsp는 거의 사용하지 않는다. 왜냐면 화면과 로직의 분리
+
+4. 자바 빈(Bean)
+: 프로그램에서 사용될 여러개의 정보를 모아놓은 데이터의 저장소 역할
+: getter/setter, 패키지화 할것, 멤버변수 private
+
+MVC Model2 패턴의 이해
+: MVC모델 2 패턴을 활용하여 웹 어플리케이션 아키텍쳐를 구축한다.
+: FrontController, BoardController, BoardLogic, BoardDao
+
+FrontController는 서블릿으로 정의한다.
+: 이유는 톰캣으로부터 HttpServletRequest, HttpServletResponse 주입받아야 한다.
+: 서블릿은 기본적으로 싱글톤 패턴이므로 BoardController나 OrderController등은 모두
+컨테이너 부터 제공받은 요청객체와 응답객체를 공유한다.
+: FrontController에서 가지고 있는 요청객체와 응답객체를 BoardController에 넘겨서 사용한다.
+-> 원본을 넘겨서 재사용한다.
+
+요청 URL
+http://localhost:8000/emp로 요청을 하면 서블릿을 경유한다.
+sendRedirect만나서 파라미터에 있는 페이지로 요청이 새로 일어난다.
+서블릿 -> jsp : URL이 emp에서 emp/empList0107.jsp로 변했다.
+기존에 요청은 끊어지고 새로운 요청이 발생한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

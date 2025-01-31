@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>멀티 element 찍기</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <style>
+    .title {
+      color: darkred;
+      font-size: 48px;
+    }
+  </style>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const rootElement = document.querySelector('#root')
+    const elemnet = (
+      <div className="box" children = {
+        [
+          React.createElement("h1", null, "Hi"),
+          React.createElement("h3", null, "Bye"),
+          React.createElement("h5", null, "Go")
+        ]
+      }/>
+    )
+    const root = ReactDOM.createRoot(rootElement)
+    root.render(elemnet)
+  </script>
+</body>
+
+</html>
+<!-- 
+  노드 내부에서 JSX를 통해서 DOM 생상하고 반영할 수 있다.
+  멀티 element를 사용하려면 반드시 괄호로 묶어주어야 하는데
+  이때 div대신 Fragment를 사용하여 불필요한 div태크가 생성되지
+  않도록 할 것.
+-->

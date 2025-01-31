@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>거래 결과페이지</title>
+</head>
+<body>
+  <script>
+    // 결제가 성공했을 때 서브측 리턴 URL로 보내주는 정보를 수집하기
+    const getQueryParams = () =>{
+      const queryString = window.loaction.search // 현재 URL로 쿼리스트링 가져오기
+      const urlParams = new URLSearchParams(queryString)
+      return {
+        resulfCode : urlParams.get("resultCode"),
+        paymentId : urlParams.get("paymentId"),
+      }
+    } //// end of getQueryParams
+
+    // 결제 성공 후에 DOM에 결제 결과 출력
+    function displayPaymentResult() {
+      const { resulfCode, paymentId } = getQueryParams()
+      
+      // HTML 요소 생성하기
+      const container = document.createElement("div")
+      const title = document.createElement("h1")
+      title.textContent = "네이버 페이 결제 결과"
+
+    } //// end of displayPaymentResult
+
+    // onload이벤트란 이 페이지의 DOM Tree가 다 그려졌을 때 그 때 인터셉트가 일어난다.
+    window.onload = displayPaymentResult;
+
+  </script>
+</body>
+</html>

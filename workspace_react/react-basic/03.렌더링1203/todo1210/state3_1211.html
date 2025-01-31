@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <div id="root"></div>
+  <script type="text/babel">
+    const rootElement = document.querySelector('#root')
+    const App = () => {
+      const title = "책제목"
+      const [books, setBooks] = React.useState([
+        "자바의 정석",
+        "리액트의 정석",
+        "오라클의 정석"
+      ])
+
+      const [publishs, setPublishs] = React.useState([
+        "5월 11일 출판",
+        "6월 25일 출판",
+        "8월 15일 출판"
+      ])
+
+      return (
+        <>
+          <ul>
+            {books.map((book, index) => (
+              <li key={index}>
+                <h2>{book}</h2>
+                <p>{publishs[index]}</p>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+    ReactDOM.createRoot(rootElement).render(<App />)
+  </script>
+</body>
+
+</html>
+
+
+<!-- 
+          <ul>
+            {books.map((book, index) => (
+              <li key={index}>
+                <strong>{book}</strong> - {publishs[index]}
+              </li>
+            ))}
+          </ul>
+-->

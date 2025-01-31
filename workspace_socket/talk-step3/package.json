@@ -1,0 +1,21 @@
+{
+  "name": "talk-step3",
+  "version": "1.0.0",
+  "main": "src/server0113.js",
+  "scripts": {
+    "server": "nodemon src/server0113.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "firebase": "^11.1.0",
+    "koa": "^2.15.3",
+    "koa-mount": "^4.0.0",
+    "koa-route": "^4.0.1",
+    "koa-send": "^5.0.1",
+    "koa-static": "^5.0.0",
+    "koa-websocket": "^7.0.0"
+  }
+}

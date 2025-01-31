@@ -1,0 +1,58 @@
+<div class="row my-5">
+  <div class="col">
+      <h1 class="text-center mb-5">글정보</h1>
+      <div class="text-end mb-2" id="btn-group" style="display:none">
+          <button class="btn btn-primary btn-sm" id="btn-update">수정</button>
+          <button class="btn btn-danger btn-sm" id="btn-delete">삭제</button>
+      </div>
+      <div id="post"></div>
+  </div>
+</div>
+
+<!--게시글정보 템플릿-->
+<script id="temp" type="text/x-handlebars-template">
+  <div class="card">
+      <div class="card-body">
+          <h5>{{ title }}</h5>
+          <div>{{ body }}</div>
+      </div>
+      <div class="card-footer">
+          Posted on <span>{{ date }}</span> by <span>{{ email }}</span>
+      </div>
+  </div>
+</script>
+
+<script type="module"> // 외부에 있는 파일을 갔다가 쓰려고 선언
+  import { app } from "/javascripts/firebase_11_25.js"
+  import { getFirestore, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"
+  const db = getFirestore(app)
+  const id = "<%=id%>"
+
+  const snapshot = await getDoc(doc(db, `posts/${id}`)) // id는 index.js에서 읽어온다.
+  const post = snapshot.data() // 1건이 있다. 왜냐하면 id로 검색한 결과이므로
+  console.log(post.email + ", " + localStorage.getItem("email"))
+  if (post.email == localStorage.getItem("email")) { // 자신이 쓴글
+    $("#btn-group").toggle()
+  }
+
+  let temp = Handlebars.compile($("#temp").html())
+  $("#post").html(temp(post))
+
+  // 게시글 삭제하기
+  $("#btn-delete").on("click", async function(){
+    if (confirm(id + "번 게시글을 삭제할까요?")){
+      await deleteDoc(doc(db, `posts/${id}`))
+      location.href = "/posts"
+    }
+  })
+
+  // 게시글 수정하기
+  $("#btn-update").on("click", async function () {
+    // 현재 파일에서 수정하는 것이 아니고 수정화면을 띄워서 기본 정보를 가지고 
+    // 수정하고자하는 값을 입력 받은 후에 저장하기(기존에 있는 정보를 수정하는 것)
+    // 기존에 보이던 화면 URL이 새로운 URL로 변경되는 것이다.
+    // 기존에 요청은 끊어지고 새로운 요청이 일어난다.
+    location.href = "/posts/update/" + id
+  })
+
+</script>

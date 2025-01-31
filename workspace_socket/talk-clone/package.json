@@ -1,0 +1,20 @@
+{
+  "name": "talk-clone",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "talk": "nodemon src/server0114.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "koa": "^2.15.3",
+    "koa-mount": "^4.0.0",
+    "koa-route": "^4.0.1",
+    "koa-send": "^5.0.1",
+    "koa-static": "^5.0.0",
+    "koa-websocket": "^7.0.0"
+  }
+}

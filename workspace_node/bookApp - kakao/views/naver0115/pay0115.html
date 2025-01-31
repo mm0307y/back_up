@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+
+<body>
+
+  <input type="button" id="naverPayBtn" value="네이버페이 결제 버튼">
+  <script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
+  <script>
+    var oPay = Naver.Pay.create({
+      "mode": "development", // development or production
+      "clientId": "HN3GGCMDdTgGUfl0kFCo", // clientId
+      "chainId": "SnE2a1o2enQxelh" // chainId
+    });
+
+    //직접 만드신 네이버페이 결제버튼에 click Event를 할당하세요
+    var elNaverPayBtn = document.getElementById("naverPayBtn");
+
+    elNaverPayBtn.addEventListener("click", function () {
+      oPay.open({
+        "merchantPayKey": "20250115as9kA5",
+        "productName": "아이폰프로16",
+        "productCount": "1",
+        "totalPayAmount": "1000000",
+        "taxScopeAmount": "1000000",
+        "taxExScopeAmount": "0",
+        "returnUrl": "http://127.0.0.1:5500/views/naver0115/payment0115.html"
+      });
+    });
+  </script>
+
+</body>
+
+</html>

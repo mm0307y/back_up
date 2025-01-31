@@ -1,0 +1,108 @@
+1. 우리는 크롬에서 테스트를 하고 있다
+
+2. 크롬 계정이 있는 경우 이미 인증 처리된다.(구글아이디)
+
+3. index.html -> index.js -> App.jsx 호출 순으로 실행된다.
+
+4. 이미 크롬계정으로 인증이 된 상태에 있다.
+
+5. conAuthChange 함수 호출
+이 내부에서는 어떤 일이 진행되는 걸까?
+현 시점에서 인증이 유지되고 있는지 또는 로그인이 풀린 상태에 있는지
+
+구글에서 지원하는 이런 상태를 체크해주는 함수이다.
+
+authLogic.js -> onAuthStateChanged호출 - 상태 체크
+
+user에 구글이 가진 상태값을 담아준다.
+리턴타입으로 받아서 쓴다.
+
+6. 5번 과정은 언제 어디서 왜 진행해야 하나?
+언제 - App.jsx가 함수이다. -> useEffect(()=>{},[x])
+App.jsx가 호출이 될때 가장 먼저 호출되는 훅이 존재 한다.(useEffect)
+
+딱 한번 호출된다.
+
+어떤 상태값이 바귈 때 마다 호출되어야 한다.
+
+리액트 기본 아이디어를 알아야 한다.
+뷰계층(DOM-html태그) - DOM tree 
+리액트는 비교 알고리즘을 제공한다.
+리얼 DOM Tree - 가상 DOM Tree를 비교한다.
+반드시 키가 필요하다.(식별자)
+비교 같다 - 다시 그리지 않는다. - 재사용한다.
+전체 페이지를 리로딩 하지 않는다. 리로딩하게 하는 것은 리액트를 잘못 사용하는 것이다.
+
+부분페이지만 변경하기 - 리액트가 원한다.
+비교해서 다르다. - 다시 그린다.(가상의 돔 필요)
+
+데이터가 변하면 useEffect를 다시 호출해야 한다.
+user가 변하면 useEffect가 다시 호출되어야 한다.
+
+리액트 훅에 대한 공부를 해야한다.
+접두어(use)에 useXXX 붙(XXX)으면 훅이다.
+
+useEffect( () => {
+	
+}, []) - 테스트를 많이 해보기
+
+의존성배열([]) - 뭘 써야하나요?
+1) 멤버변수
+2) 꼭 반드시 useState일 필요는 없다.
+3) 1번이나 2번에서 사용된 변수들과 현재 내가 처리할 기능과
+의존 관계가 있나?
+외존 관계가 잇는 변수나 훅 등등 의존성 배열에 후보군이다.
+주의 사항 - 의존성 배열에 잘 못된 변수를 선택하면 무한루프에 빠진다.
+4) 비동기 처리 여부 결정(동기 or 비동기)
+5) useEffect를 탈출하는 방법 - reteun
+
+시나리오
+1. 나는 크롬계정에 로그인된 상태이다.
+2. user정보가 있다.
+- 소셜로그인 : uid(mem_uid), email(mem_email)
+if () {}
+
+select
+  from member250120
+  where mem_uid = user.uid
+
+아무것도 없다. List<Map<>> = null -> NullPoniterException
+조회겨로가가 있다면 - 회원가입이 이미 되어있다.
+-> 당신은 이미 회원입니다.
+-> 아니요 : 당신은 회원가입을 진행햐야 합니다. - 이걸 한다
+
+
+==========================================================
+
+3000번 
+
+localhost:3000/board여청 -> reboard -> ReBoardDBList.jsx -> 오라클 서버 경유(글 목록을 가져오기) 
+-> localhost:8000/pojo/board/boardList.do -> array[0] = board, array[1]=boardList - 끝에 .do는 제외 됐다.
+-> .do의 역할은 최초 요청을 FromController 인 ActionServlet을 태우기 위해 의미없는 확장자를 붙였다.
+-> useEffect(() => { url: /pojo/board/boardList.do -> const res -> const [boards, setBoards] = useStat([];),[])
+
+자바진형
+
+한건은 Map<String, Object>
+n건은 List<Map<String, Object>>
+list.get(0) -> 첫 번째 로우에 있는 값들 -> Map
+list.get(1) -> Map : 0번째 Map과 1번째 Map서로 타입은 같지만 다른 객체이다.
+JSON포맷 변경한다.
+
+Gson g = new Gson();
+String temp = g.toJson(list)
+res.setConntentType("application/json;charset=utf-8"
+PrintWrier out = res.getWriter();
+out.print(temp) ->
+
+
+System.out.print() -> 로컬 PC명령 프롬프트에 출력한다.
+out.print() -> document.write("<h1>뉴스제목</h1>)"
+
+
+
+
+
+
+
+

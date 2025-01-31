@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <div id="root"></div>
+  <script type="text/babel">
+    const rootElement = document.querySelector('#root')
+    const App = () => {
+      const title = "책제목"
+      const [books, setBooks] = React.useState([
+        "자바의 정석",
+        "리액트의 정석",
+        "오라클의 정석"
+      ])
+      let [like, setLike] = React.useState(0)
+      let [dislike, setDisLike] = React.useState(0)
+      // 일반변수와 state훅의 차이는?
+      // 데이터 변경이 일어나면 자동으로 재렌더링이 된다.
+
+      const add = () => {
+        setLike(like + 1)
+      }
+
+      const minus = () => {
+        setDisLike(dislike + 1)
+      }
+
+      return (
+        <>
+          <ul>
+            <li>
+              <h2>{books[0]}</h2>
+              <p>5월 11일 출판</p>
+            </li>
+            <li>
+              <div>
+                <h2>{books[1]}</h2>
+                <p>6월 25일 출판</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <h2>{books[2]}</h2>
+                <p>8월 15일 출판</p>
+              </div>
+            </li>
+          </ul>
+        </>
+      )
+    }
+    ReactDOM.createRoot(rootElement).render(<App />)
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>장바구니</title>
+  <script src="https://kit.fontawesome.com/b105efb655.js" crossorigin="anonymous"></script>
+  <!-- css를 수정했는데 적용이 안된다. GET방식 이슈(304{캐쉬} -> 200) XXX.html?1 다른요청으로 인지하게 된다. -->
+  <link rel="stylesheet" href="./shop_11_21.css">
+  <script src="./shop2_11_22.js" defer></script>
+</head>
+
+<body>
+  <!-- 1 챕터 -->
+  <section class="list">
+    <!-- 2 타이틀 -->
+    <header class="header">Shopping List</header>
+    <!-- 3 상품 목록 -->
+    <ul class="items">
+    </ul>
+    <!-- 4 바닥글 -->
+    <footer class="footer">
+      <!-- 5 상품일력 창 -->
+      <input type="text" class="footer_input">
+      <!-- 6 상품 추가 버튼 -->
+      <button class="footer_plus">
+        <i class="fas fa-plus"></i>
+      </button>
+    </footer>
+  </section>
+</body>
+
+</html>
+<!-- 
+emmet 단축키
+하위태그 생성 : ul>li{내용번호($)}*3
+-->

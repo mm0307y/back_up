@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Tracker - 2단계</title>
+  <link rel="stylesheet" href="./tracker2_11_18.css">
+  <script src="https://kit.fontawesome.com/b105efb655.js" crossorigin="anonymous"></script>
+  <script src="./tracker2_11_18.js" defer></script>
+</head>
+
+<body onload="getWorkoutList()">
+
+  <script>
+    //선언된 배열을 활용하여 목록을 처리한다.
+    const items = [
+      { id: 1, name: "밴치프레스", count: 0 },
+      { id: 2, name: "랫풀다운", count: 0 },
+      { id: 3, name: "스쿼트", count: 0 }
+    ]
+  </script>
+  <div id="workout-app">
+    <h2>Workout Tracker - 2단계</h2>
+    <ul class="workout-list">
+    </ul>
+  </div>
+</body>
+</html>

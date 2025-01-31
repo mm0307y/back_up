@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script type="text/javascript">
+    const wrap = function(){
+      return function(){
+        console.log("Hello")
+      }
+    }
+
+    // 대입연산자를 통해서 리턴 받는 것이 함수이다.
+    const myfunc = wrap()
+    myfunc()
+  </script>
+</body>
+</html>

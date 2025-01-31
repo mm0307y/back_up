@@ -1,0 +1,15 @@
+create table member250120(
+    mem_no number(5) constraint member250120_no_pk primary key
+    , mem_uid varchar2(50)
+    , mem_pw varchar2(10) 
+    , mem_name varchar2(30)
+    , mem_nickname varchar2(30)
+    , mem_email varchar2(20)
+    , mem_tel varchar2(20)
+    , mem_gender varchar2(10)
+    , mem_birthday varchar2(30)
+    , mem_zipcode varchar2(6)
+    , mem_addr varchar2(100)
+    , mem_addr_dtl varchar2(20)
+    , mem_auth varchar2(20)    
+)

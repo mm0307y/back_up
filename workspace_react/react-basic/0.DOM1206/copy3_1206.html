@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Element 찍기어내기</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <style>
+    .title {
+      color: darkred;
+      font-size: 48px;
+    }
+  </style>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // 반복되는 element를 함수로 처리해 본다.
+    // 리액트가 제공하는 사용자 정의 컴포넌트로 변경해 본다.
+    // 1) 파라미터 값을 props문법에 맞게 좌, 우 중괄호로 묶어준다.
+    // 2) 함수의 이름은 반드시 대문자로 시작할 것 - 왜냐면 기존 태그와 분리
+    const rootElement = document.querySelector('#root')
+    const Paint = ({title, description}) => {
+      return (
+        <div>
+          <h2>{title}</h2>
+          <p>{description}</p>
+        </div>
+      )
+    }
+
+    const elemnet = (
+      <React.Fragment>
+        {/* 함수를 태그 처럼 사용해  본다. */}
+        <Paint title="자바" description="객체지향프로그래밍" />
+        <Paint title="리액트" description="자바스크립트 라이브러리" />
+        <Paint title="스프링" description="자바 프레임워크" />
+      </React.Fragment>
+    )
+    const root = ReactDOM.createRoot(rootElement)
+    root.render(elemnet)
+  </script>
+</body>
+
+</html>
+<!-- 
+  노드 내부에서 JSX를 통해서 DOM 생상하고 반영할 수 있다.
+  멀티 element를 사용하려면 반드시 괄호로 묶어주어야 하는데
+  이때 div대신 Fragment를 사용하여 불필요한 div태크가 생성되지
+  않도록 할 것.
+-->

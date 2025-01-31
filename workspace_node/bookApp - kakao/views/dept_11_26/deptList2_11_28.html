@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handlebars - 실습</title>
+  <!-- Handlebars 라이브러리 추가 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+</head>
+<body>
+  <!-- 
+  화면과 데이터가 만나는 부분을 어떻게 처리하지?
+  데이터는 영속성을 보장받기 위해 오라클과 같은 서버제품을 사용한다. - 눈에 안보이는 부분 - 뒤에서 - 몰래
+  화면과 로직(업무 + 데이터셋)을 불리하자 - MVC패턴
+  리액트와 스프링 연계하기
+  우리에 목표는 for문을 태그 중간에 절대로 쓰지 않겠다. - 다짐
+  Handlerbar를 통해서 이루자 
+  -->
+  <script>
+    // 부서집합 데이터셋 추가
+    // 배열 앞에 붙은 라벨이 ecth문 사용된다.
+    const data = {
+      depts: [
+        { deptno: 10, dname: "개발1팀", loc: "서울" },
+        { deptno: 20, dname: "운영팀", loc: "제주" },
+        { deptno: 30, dname: "품질관리팀", loc: "세종" }
+      ]
+    }
+  </script>
+  <!-- 
+  li태그의 수를 우리가 정할 수 없다. 데이터셋의 수를 봐야 결정이 가능하다.
+  반복되어야 하는 코드블록은 묶어주자.
+  외부 라이브러리인 handlebars를 사용한다. - js
+-->
+  <script id="dept-template" type="text/x-handlebars-template">
+    <ul>
+    {{#each depts}}
+      <li>{{deptno}}, {{dname}}, {{loc}}</li>
+      {{/each}}
+    </ul >
+  </script>
+
+  <!-- 데이터를 바인딩해줄 컨테이너 -->
+  <div id="root"></div>
+  <script>
+    // 템플릿 가져오기 - script태그 안에 들어있는 HTML 태그들
+    const source = document.querySelector("#dept-template").innerHTML
+
+    // 템플릿을 컴파일 한다.(compile)
+    const template = Handlebars.compile(source)
+    const html = template(data)
+
+    // 결과를 출력하기
+    document.querySelector("#root").innerHTML = html
+  </script>
+</body>
+</html>

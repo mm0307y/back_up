@@ -1,0 +1,49 @@
+*{
+  border: 1px solid red;
+  box-sizing: border-box;
+}
+
+button{
+  outline: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.workout{
+  font-size: 2.5rem;
+  padding: 0.5em;
+  list-style: none;
+}
+
+/* 인라인요소는 가로세로 크기가 적용되지 않는다. */
+.workout-count{
+  display: inline-block;
+  font-size: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: darkseagreen;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2.5rem;
+}
+
+.workout-button{
+  font-size: 2.5rem;
+  margin: 0.01em;
+  background-color: transparent;
+}
+
+.workout-button:hover{
+  opacity: 0.8;
+}
+
+.workout-increasem,
+.workout-decreasem{
+  color: goldenrod;
+}
+
+.workout-delete{
+  font-size: 2rem;
+  color: darkred;
+}

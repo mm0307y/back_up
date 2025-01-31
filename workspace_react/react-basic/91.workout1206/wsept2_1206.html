@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <div id="root"></div>
+  <style>
+    .items {
+      padding-left: 0; /* li태그 구슬 내부여백 없애기 */
+    }
+
+    .item {
+      list-style: none;
+      color: red;
+    }
+  </style>
+  <script type="text/babel">
+    const rootElement = document.querySelector("#root")
+    const WorkoutList = ({ props }) => {
+      // 선언부
+      const [items, setItems] = React.useState([
+        { id: 1, name: "밴치프레스", count: 0 },
+        { id: 2, name: "랫풀다운", count: 0 },
+        { id: 3, name: "스쿼트", count: 0 }
+      ])
+
+      // 렌더링 부
+      return (
+        <>
+          <ul className="items">
+            {items.map((item) => (
+              <WorkoutItem key={item.id} item={item}/>
+            ))}
+          </ul>
+        </>
+      )
+    } //// end of WorkoutList
+
+    const WorkoutItem = (props) => {
+      const item = props.item
+      return (
+        <>
+          <li className="item">{item.name}({item.count})</li>
+        </>
+      )
+    }
+    const element = (
+      <>
+        <WorkoutList />
+      </>
+    )
+    ReactDOM.createRoot(rootElement).render(element)
+  </script>
+</body>
+
+</html>

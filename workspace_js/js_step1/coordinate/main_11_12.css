@@ -1,0 +1,35 @@
+body{
+    background-color: black;
+}
+/* 클래스 선택자는 .을 사용한다. */
+.line{
+    background-color: white;
+    position: absolute; 
+}
+
+.horizontal{
+    height: 1px;
+    top: 50%;
+    width: 100%;
+}
+
+.vertical{
+    width: 1px;
+    left: 50%;
+    height: 100%;
+}
+
+.target{
+    
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform:translate(-50%, -50%);
+}
+
+.tag{
+    color: white;
+    position: absolute; /* default static이라서 변경이 안된다. */
+    font-size: 38px;
+    transform: translate(20px, 20px);
+}

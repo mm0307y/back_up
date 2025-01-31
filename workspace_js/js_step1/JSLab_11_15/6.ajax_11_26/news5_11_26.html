@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>해커뉴스 - 비동기처리</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        const request = $.ajax({
+            url: "https://api.hnpwa.com/v0/news/1.json",
+            method: "GET",
+            dataType: "json"
+        });
+
+        request.done(function(msg) {
+            console.log(msg)
+            // $("#root").html(msg);
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+    </script>
+</body>
+</html> 

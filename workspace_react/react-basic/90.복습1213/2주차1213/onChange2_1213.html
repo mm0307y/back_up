@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <div id="root"></div>
+  <script type="text/babel">
+    const rootElement = document.querySelector('#root')
+    const App = () => {
+      console.log('App start')
+      const [keyword, setKeyword] = React.useState(() => {
+        console.log("initialize")
+        return window.localStorage.getItem('keyword')
+      })
+
+      // 타이핑을 마치고 검색한 결과를 담을 변수 선언
+      const [result, setResult] = React.useState("")
+
+      // 타이핑 중인가? 아니면 완료했나
+      const [typing, setTyping] = React.useState(false)
+      // 문제 - 어떻게 하면 keyword가 바뀔때마다 loclaStorage에 저장 할까
+      // useEffect를 사용하세요.
+      // 두 번재 파라미터 자리는 의존성 배열 자리이다.
+      // keyword를 입력할 때 마다 useEffect를 호출될 수 있다.
+      React.useEffect(() => {
+        console.log('useEffect')
+        window.localStorage.setItem("keyword", keyword)
+      }, [keyword])
+
+      const handleChange = (event) => {
+        // 사용자가 입력한 값을 출력 해본다.
+        // console.log(event.target.value)
+        setKeyword(event.target.value)
+        setTyping(true)
+      }
+
+      const handleClick = (event) => {
+        setTyping(false)
+        setResult(`내가 찾은 결과는 ${keyword}`)
+      }
+
+      return (
+        <>
+          <input type='text' onChange={handleChange} value={keyword} />
+          <button onClick={handleClick}>검색</button>
+          <p>{typing ? `사용자가 입력한 값 ${keyword} ...` : result}</p>
+        </>
+      )
+    }
+    ReactDOM.createRoot(rootElement).render(<App />)
+  </script>
+</body>
+
+</html>
+
+<!-- 
+  useState 훅 연습
+-->

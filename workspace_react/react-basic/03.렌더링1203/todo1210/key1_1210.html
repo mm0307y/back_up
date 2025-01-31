@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <div id="root"></div>
+  <script type="text/babel">
+    const rootElement = document.querySelector('#root')
+    const todos = [
+      { id: 1, value: "방청소" },
+      { id: 2, value: "빨래하기" },
+      { id: 3, value: "조깅하기" },
+    ]
+
+    const App = () => {
+      const [items, setItems] = React.useState(todos)
+      const doneClick = (todo) => {
+        console.log(todo)
+
+        // 객체배열 todos에서 선택한 버튼의 아이템과 다른 것만 새로운 배열에 담는다. - 깊은 복사
+        setItems((items) => items.filter((item) => item !== todo))
+      }
+
+      return (
+        <React.Fragment>
+          {items.map((item, index) => (
+            <div key={index}>
+              <span>{item.value}</span>
+              <button onClick={() => doneClick(item)}>Done</button>
+            </div>
+          ))}
+        </React.Fragment>
+      )
+    }
+    ReactDOM.createRoot(rootElement).render(<App />)
+  </script>
+</body>
+
+</html>
