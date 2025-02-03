@@ -1,8 +1,4 @@
 package com.example.demo.pojo0106;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.log4j.Log4j2;
-
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -13,6 +9,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.util.HashMapBinder0117;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j2;
+
 @Log4j2
 public class BoardController0106 implements Controller0106 {
   BoardLogic0106 boardLogic = new BoardLogic0106();
@@ -21,7 +21,7 @@ public class BoardController0106 implements Controller0106 {
   public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
     // upmu[0] = board, order, notice, member, login
     // upmu[1] = boardList, boardInsert, boardUpdate, boardDelete,
-    String upmu[] = (String[])req.getAttribute("upmu");
+    String upmu[] = (String[]) req.getAttribute("upmu");
 
     // 스프링은 메서드 위에 GetMapping, PostMapping, PutMapping, DeleteMapping이 지원되니까
     // 이렇게 if문으로 제어를 하지 않아도 되었다.
@@ -108,7 +108,7 @@ public class BoardController0106 implements Controller0106 {
 
     // 글 삭제하기 구현
     else if ("boardDelete".equals(upmu[1])) {
-      Map<String, Object> pmap = new HashMap();
+      Map<String, Object> pmap = new HashMap<>();
       HashMapBinder0117 hmb = new HashMapBinder0117(req);
       hmb.bindPost(pmap);
       int result = boardLogic.boardDelete(pmap);
@@ -132,6 +132,7 @@ public class BoardController0106 implements Controller0106 {
       PrintWriter out = res.getWriter();
       out.print(temp);
       out.flush();
+      return "exist";
     } // end of 상세보기 - 메서드로 분리되지 못하고 if문으로 처리할 때 과연 가독성이 좋은가
     
     return null;

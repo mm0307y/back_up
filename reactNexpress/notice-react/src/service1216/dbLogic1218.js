@@ -1,5 +1,60 @@
 import axios from "axios";
 
+// 댓글 쓰기 구현
+export const reCommentInsertDB = (comment) => {
+  console.log(comment)
+  return new Promise((resolve, reject) => {
+    try {
+      const res = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "pojo/board/commentInsert.do",
+        data: comment
+      })
+      resolve(res)
+    } catch (error) {
+      reject(error)
+    }
+  });
+} // end of reCommentInsertDB
+
+// 게시글 쓰기 구현
+export const reBoardInsertDB = (board) => {
+  // 사용자가 입력한 값 출력하기
+  console.log(board)
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "pojo/board/boardInsert.do",
+        data: board
+      })
+      resolve(response)
+    } catch (error) {
+      reject(error)
+    }
+  });
+} // end of reBoardInsertDB
+
+// QuillEditor에 이미지 처리하기
+export const reUploadImageDB = (file) => {
+  console.log(file.name)
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "pojo/board/imageUpload.do",
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        data: file
+      })
+      resolve(response)
+    } catch (error) {
+      reject(error)
+    }
+  });
+}
+
 // 게시글 상세보기 구현
 export const reBoardDetailDB = (b_no) => {
   console.log(b_no)

@@ -6,7 +6,7 @@ import { reBoardDeleteDB } from '../../service1216/dbLogic1218';
 const ReBoardHeader0131 = ({board, b_no, page}) => {
   const navigate = useNavigate();
   const { b_hit, setBhit } = useState(0)
-  // boardDelete 한 뒤 조회수가 1증가된 결과가 즉시 화면에 반영되도록 수정 할때
+  // boardDetail 한 뒤 조회수가 1증가된 결과가 즉시 화면에 반영되도록 수정할 때
   // 리액트에서는 state가 변하면 새로 렌더링 한다.
   useEffect(() => {
     setBhit(board.B_HIT)

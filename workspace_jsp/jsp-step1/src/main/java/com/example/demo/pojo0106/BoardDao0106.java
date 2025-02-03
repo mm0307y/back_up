@@ -38,7 +38,7 @@ public class BoardDao0106 {
   public int boardInsert(Map<String, Object> pmap) {
     log.info("boardInsert");
     int result = -1;
-    
+
     // MyBatisCommonFactory 초기화 -> SqlSessionFactory 생성하기
     SqlSessionFactory sqlSessionFactory = mcf.getSqlSessionFactory();
 
@@ -52,7 +52,7 @@ public class BoardDao0106 {
       sqlSession.commit();
     } catch (Exception e) {
       e.printStackTrace();
-    } finally{
+    } finally {
       sqlSession.close();
     }
     return result;
@@ -69,7 +69,7 @@ public class BoardDao0106 {
       sqlSession.commit();
     } catch (Exception e) {
       e.printStackTrace();
-    } finally{
+    } finally {
       sqlSession.close();
     }
     return result;
@@ -86,7 +86,7 @@ public class BoardDao0106 {
       sqlSession.commit();
     } catch (Exception e) {
       e.printStackTrace();
-    } finally{
+    } finally {
       sqlSession.close(); // 사용한 자원은 명시적으로 닫아주기
     }
   } // end of hitCount
@@ -102,7 +102,7 @@ public class BoardDao0106 {
       sqlSession.commit();
     } catch (Exception e) {
       e.printStackTrace();
-    } finally{
+    } finally {
       sqlSession.close();
     }
     return result;

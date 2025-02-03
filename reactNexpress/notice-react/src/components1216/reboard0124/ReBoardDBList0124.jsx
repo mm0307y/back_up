@@ -17,7 +17,7 @@ const ReBoardDBList0124 = () => {
   const itemsPerPage = 5
 
   // 현재 페이지 출력 될 item 계산 - 이 값만큼만 반복문 돌리기
-  const currentItems = boards.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  const currentItems = boards.slice((currentPage - 1)*itemsPerPage, currentPage*itemsPerPage)
 
   // 페이징 처리 결과에 따라서 화면을 매번 재랜더링 하기
   useEffect(() => {
@@ -26,7 +26,7 @@ const ReBoardDBList0124 = () => {
     const page = queryParams.get('page')
 
     // 자바 스크립트에서는 0이면 false 아니면 다 true
-    // 쿼리스트링으로 넘어노는 값은 모두 다 String -> int로 변환 하기
+    // 쿼리스트링으로 넘어오는 값은 모두 다 String -> int로 변환 하기
     if (page) setCurrentPage(parseInt(page))
   }, [window.location.search])
 
@@ -41,14 +41,27 @@ const ReBoardDBList0124 = () => {
     asyncDB()
   }, []) // 주의 사항 : 의존성 배엘 useState를 넣을 때는 무한루프에 빠질 수 있다.
 
-  const boardSearch = () => {
+  // 게시글에 대한 조건 검색 구현
+  const boardSearch = async () => {
+    const gubun = document.querySelector('#gubun').value
+    const keyword = document.querySelector('#keyword').value
+    console.log(`${gubun}, ${keyword}`)
 
+    const board = { gubun, keyword }
+    const res = await reBoardListDB(board)
+    console.log(res.data)
+    setBoards(res.data)
+    // 검색시에 첫 페이지로 이동하기
+    setCurrentPage(1)
   } // end of boardSearch
 
-  const boardList = () => {
-
+  const boardList = async() => {
+    console.log("전체조회")
+    const board = { gubun: null, keyword: null }
+    const res = await reBoardListDB(board)
+    setBoards(res.data)
+    setCurrentPage(1)
   } // end of boardList
-
 
   return (
     <>

@@ -32,7 +32,7 @@ import ReBoardDBList0124 from "./components1216/reboard0124/ReBoardDBList0124";
 import MyPage0127 from "./components1216/pages1216/auth0120/MyPage0127";
 import ReBoardDBDetail0131 from "./components1216/reboard0124/ReBoardDBDetail0131";
 import ReBoardDBUpdate0131 from "./components1216/reboard0124/ReBoardDBUpdate0131";
-import ReBoardDBWrite0131 from "./components1216/reboard0124/ReBoardDBWrite0131";
+import ReBoardDBWrite0203 from "./components1216/reboard0124/ReBoardDBWrite0203";
 
 // App이 실행될 때 로그인 상태인지를 체크하기
 const App = () => {
@@ -77,7 +77,7 @@ const App = () => {
             console.log(typeof res.data)
             console.log(res.data)
             console.log(res.data.length)
-            if (typeof res.data === 'object') { // 참이면 조회결과가 있다. 회원가입이 되어 있다.
+            if (typeof res.data == 'object') { // 참이면 조회결과가 있다. 회원가입이 되어 있다.
               if (Array.isArray(res.data)) {
                 console.log("조회 결과가 배열 일 때")
                 dispatch(setToastMsg('해당 구글 계정은 회원가입 대상입니다. 회원가입을 부탁드립니다.'))
@@ -123,7 +123,7 @@ const App = () => {
           <Route path="/reboard" exact={true} element={<ReBoardDBList0124 />} />
           <Route path="/reboard/:b_no" exact={true} element={<ReBoardDBDetail0131 />} />
           <Route path="/reboard/update/:b_no" exact={true} element={<ReBoardDBUpdate0131 />} />
-          <Route path="/reboard/write" exact={true} element={<ReBoardDBWrite0131 />} />
+          <Route path="/reboard/write" exact={true} element={<ReBoardDBWrite0203 />} />
           {/* NodeJS 게시판 */}
           <Route path="/board" exact={true} element={<BoardDBList1226 />} />
           <Route path="/board/write" exact={true} element={<BoardDBWrite1226 />} />

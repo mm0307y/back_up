@@ -32,9 +32,9 @@ public class BoardLogic0106 {
 
     // 현재 상세보기(b_no)에 대한 댓글이 존재하니?
     if (coList != null && coList.size() > 0) { // 댓글이 존재하는 경우에 해당
-      Map<String, Object> coMap = new HashMap<>();
-      coMap.put("COMMENT", coList);
-      list.add(coMap); // [{},{}, COMMENT : []{},{}]]
+      Map<String, Object> cmap = new HashMap<>();
+      cmap.put("COMMENT", coList);
+      list.add(cmap); // [{},{}, COMMENT : []{},{}]]
     }
     return list;
   } // end of boardDetail
