@@ -60,13 +60,19 @@ public class BoardLogic0106 {
     return result;
   }
 
-  /* 
-  public int boardDelete(Map<String, Object> pmap) {
-    log.info("boardDelete");
+  public int commentInsert(Map<String, Object> pmap) {
+    log.info("commentInsert");
     int result = -1;
-    result = boardDao.boardDelete(pmap);
+    result = boardDao.commentInsert(pmap);
     return result;
-  } */
+  } // end of 댓글 작성하기
+
+  public int commentUpdate(Map<String, Object> pmap) {
+    log.info("commentUpdate");
+    int result = -1;
+    result = boardDao.commentUpdate(pmap);
+    return result;
+  }
 }
 
 /*

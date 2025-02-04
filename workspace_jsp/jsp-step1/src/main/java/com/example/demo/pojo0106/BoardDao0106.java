@@ -121,7 +121,41 @@ public class BoardDao0106 {
     }
     return cList;
   }
+
+  public int commentInsert(Map<String, Object> pmap) {
+    int result = -1;
+    SqlSessionFactory sqlSessionFactory = mcf.getSqlSessionFactory();
+    SqlSession sqlSession = null;
+    try {
+      sqlSession = sqlSessionFactory.openSession();
+      result = sqlSession.insert("commentInsert", pmap);
+      log.info(result);
+      sqlSession.commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      sqlSession.close();
+    }
+    return result;
+  }
+
+  public int commentUpdate(Map<String, Object> pmap) {
+    int result = -1;
+    SqlSessionFactory sqlSessionFactory = mcf.getSqlSessionFactory();
+    SqlSession sqlSession = null;
+    try {
+      sqlSession = sqlSessionFactory.openSession();
+      result = sqlSession.update("commentUpdate", pmap);
+      sqlSession.commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      sqlSession.close();
+    }
+    return result;
+  }
 } // end of commentList - 댓글 목록 가져오기
+
 /*
  * 조회 결과에 null이 출력되는 경우
  * 1) DB에서 조회한 결과에 대해 return시 null을 입력한 경우

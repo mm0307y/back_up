@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router'
 
 const ReBoardDBItem0131 = (props) => {
-  const { B_NO, B_TITLE, MEM_NAME } = props.board
+  const { B_NO, B_TITLE, MEM_NAME } = props.board;
+  //console.log(n_title)
   console.log(props.page)
   return (
     <>

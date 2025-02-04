@@ -8,22 +8,22 @@ import ReBoardDBItem0131 from './ReBoardDBItem0131'
 
 const ReBoardDBList0124 = () => {
   const navigate = useNavigate();
-  const [boards, setBoards] = useState([])
+  const [boards, setBoards] = useState([]);
 
   // 현재 내가 바라보는 페이지 정보
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
 
   // 한 페이지당 항목 수 
-  const itemsPerPage = 5
+  const itemsPerPage = 5;
 
   // 현재 페이지 출력 될 item 계산 - 이 값만큼만 반복문 돌리기
-  const currentItems = boards.slice((currentPage - 1)*itemsPerPage, currentPage*itemsPerPage)
+  const currentItems = boards.slice((currentPage - 1)*itemsPerPage, currentPage*itemsPerPage);
 
-  // 페이징 처리 결과에 따라서 화면을 매번 재랜더링 하기
+  // 페이징 처리 결과에 따라서 화면을 매번 재렌더링 하기
   useEffect(() => {
     // URL에서 현재 페이지 번호 가져오기
-    const queryParams = new URLSearchParams(window.location.search)
-    const page = queryParams.get('page')
+    const queryParams = new URLSearchParams(window.location.search);
+    const page = queryParams.get("page");
 
     // 자바 스크립트에서는 0이면 false 아니면 다 true
     // 쿼리스트링으로 넘어오는 값은 모두 다 String -> int로 변환 하기
@@ -35,16 +35,16 @@ const ReBoardDBList0124 = () => {
     const asyncDB = async () => {
       const board = { gubun: null, keyword: null }
       const res = await reBoardListDB(board)
-      console.log(res.data)
+      console.log(res.data + "여기 사람있어요~")
       setBoards(res.data)
     }
     asyncDB()
-  }, []) // 주의 사항 : 의존성 배엘 useState를 넣을 때는 무한루프에 빠질 수 있다.
+  }, []) // 주의 사항 : 의존성 배열에 useState를 넣을 때는 무한루프에 빠질 수 있다.
 
   // 게시글에 대한 조건 검색 구현
   const boardSearch = async () => {
-    const gubun = document.querySelector('#gubun').value
-    const keyword = document.querySelector('#keyword').value
+    const gubun = document.querySelector("#gubun").value
+    const keyword = document.querySelector("#keyword").value
     console.log(`${gubun}, ${keyword}`)
 
     const board = { gubun, keyword }
@@ -55,7 +55,7 @@ const ReBoardDBList0124 = () => {
     setCurrentPage(1)
   } // end of boardSearch
 
-  const boardList = async() => {
+  const boardList = async () => {
     console.log("전체조회")
     const board = { gubun: null, keyword: null }
     const res = await reBoardListDB(board)

@@ -3,14 +3,14 @@ import { BButton } from '../../styles1226/FormStyles'
 import { useNavigate } from 'react-router';
 import { reBoardDeleteDB } from '../../service1216/dbLogic1218';
 
-const ReBoardHeader0131 = ({board, b_no, page}) => {
+const ReBoardHeader0131 = ({ board, b_no, page }) => {
   const navigate = useNavigate();
-  const { b_hit, setBhit } = useState(0)
+  const [b_hit, setBhit] = useState(0)
   // boardDetail 한 뒤 조회수가 1증가된 결과가 즉시 화면에 반영되도록 수정할 때
   // 리액트에서는 state가 변하면 새로 렌더링 한다.
   useEffect(() => {
-    setBhit(board.B_HIT)
-  }, [board])
+    setBhit(board.B_HIT);
+  }, [board]);
 
   const boardDelete = async () => {
     await reBoardDeleteDB(b_no)
@@ -26,42 +26,42 @@ const ReBoardHeader0131 = ({board, b_no, page}) => {
 
   return (
     <>
-          <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-            <div style={{ display: 'flex', justifyContent: "space-between" }}>
-              <div style={{ overflow: "auto" }}>
-                <span style={{ marginBottom: '15px', fontSize: "30px", display: "block" }}>
-                  {board.b_title}
-                </span>
-              </div>
-              {
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <BButton style={{ margin: '0px 10px 0px 10px' }} onClick={() => { navigate(`/board/update/${b_no}`) }}>
-                    수정
-                  </BButton>
-                  <BButton style={{ margin: '0px 10px 0px 10px' }} onClick={() => { boardDelete() }}>
-                    삭제
-                  </BButton>
-                  <BButton style={{ margin: '0px 10px 0px 10px' }} onClick={boardList}>
-                    목록
-                  </BButton>
-                </div>
-              }
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: "space-between" }}>
+          <div style={{ overflow: "auto" }}>
+            <span style={{ marginBottom: '15px', fontSize: "30px", display: "block" }}>
+              {board.b_title}
+            </span>
+          </div>
+          {
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <BButton style={{ margin: '0px 10px 0px 10px' }} onClick={() => { navigate(`/board/update/${b_no}`) }}>
+                수정
+              </BButton>
+              <BButton style={{ margin: '0px 10px 0px 10px' }} onClick={() => { boardDelete() }}>
+                삭제
+              </BButton>
+              <BButton style={{ margin: '0px 10px 0px 10px' }} onClick={boardList}>
+                목록
+              </BButton>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span>작성자 : {board.MEM_NAME}</span>
-                <span>작성일 : {board.B_DATE}</span>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', marginRight: '10px' }}>
-                <div style={{ display: 'flex' }}>
-                  <span style={{ marginRight: '5px' }}>조회수 :</span>
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', width: '30px' }}>{board.B_HIT}</div>
-                </div>
-              </div>
+          }
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span>작성자 : {board.MEM_NAME}</span>
+            <span>작성일 : {board.B_DATE}</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', marginRight: '10px' }}>
+            <div style={{ display: 'flex' }}>
+              <span style={{ marginRight: '5px' }}>조회수 :</span>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', width: '30px' }}>{board.B_HIT}</div>
             </div>
           </div>
-          <hr style={{ height: "2px" }} />
-        </>
+        </div>
+      </div>
+      <hr style={{ height: "2px" }} />
+    </>
   )
 }
 

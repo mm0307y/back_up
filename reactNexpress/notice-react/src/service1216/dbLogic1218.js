@@ -7,7 +7,7 @@ export const reCommentInsertDB = (comment) => {
     try {
       const res = axios({
         method: "post",
-        url: process.env.REACT_APP_SPRING_IP + "pojo/board/commentInsert.do",
+        url: process.env.REACT_APP_SPRING_IP + "pojo0106/board/commentInsert.do",
         data: comment
       })
       resolve(res)
@@ -17,6 +17,25 @@ export const reCommentInsertDB = (comment) => {
   });
 } // end of reCommentInsertDB
 
+// 댓글 수정 구현
+export const reCommentUpdateDB = (cmt) => {
+  // 사용자가 입력한 값을 출력해 보기
+  console.log(cmt)
+
+  return new Promise((resolve, reject) => {
+    try {
+      const res = axios({
+        method: "put",
+        url: process.env.REACT_APP_SPRING_IP + "pojo0106/board/commentUpdate.do",
+        data: cmt
+      })
+      resolve(res)
+    } catch (error) {
+      reject(error)
+    }
+  });
+} // end of reCommentUpdateDB
+
 // 게시글 쓰기 구현
 export const reBoardInsertDB = (board) => {
   // 사용자가 입력한 값 출력하기
@@ -25,7 +44,7 @@ export const reBoardInsertDB = (board) => {
     try {
       const response = axios({
         method: "post",
-        url: process.env.REACT_APP_SPRING_IP + "pojo/board/boardInsert.do",
+        url: process.env.REACT_APP_SPRING_IP + "pojo0106/board/boardInsert.do",
         data: board
       })
       resolve(response)
@@ -42,7 +61,7 @@ export const reUploadImageDB = (file) => {
     try {
       const response = axios({
         method: "post",
-        url: process.env.REACT_APP_SPRING_IP + "pojo/board/imageUpload.do",
+        url: process.env.REACT_APP_SPRING_IP + "pojo0106/board/imageUpload.do",
         headers: {
           "Content-Type": "multipart/form-data"
         },
@@ -62,7 +81,7 @@ export const reBoardDetailDB = (b_no) => {
     try {
       const res = axios({
         method: "get",
-        url: process.env.REACT_APP_SPRING_IP + "pojo/board/boardDetail.do?b_no=" + b_no,
+        url: process.env.REACT_APP_SPRING_IP + "pojo0106/board/boardDetail.do?b_no=" + b_no,
       });
       resolve(res)
     } catch (error) {
@@ -78,7 +97,7 @@ export const reBoardDeleteDB = (b_no) => {
     try {
       const res = axios({
         method: "delete",
-        uri: process.env.REACT_APP_SPRING_IP + "pojo/board/boardDelete.do?b_no=" + b_no
+        uri: process.env.REACT_APP_SPRING_IP + "pojo0106/board/boardDelete.do?b_no=" + b_no
       });
       resolve(res)
     } catch (error) {
@@ -95,7 +114,7 @@ export const reBoardListDB = (params) => {
     try {
       const response = axios({
         method: "get",
-        url: process.env.REACT_APP_SPRING_IP + "pojo/board/boardList.do",
+        url: process.env.REACT_APP_SPRING_IP + "pojo0106/board/boardList.do",
         params: params,
       });
       resolve(response) //성공했을 때
@@ -107,6 +126,7 @@ export const reBoardListDB = (params) => {
 
 // 회원 가입 구현 - 소셜로그인 한 경우, 일반회원, 코치회원
 // 비밀번호가 포함되어 있어서 post방식으로 한다.
+
 export const memberInsertDB = (datas) =>{
   // 파라미터로 넘어온 사용자가 입력한 값 확인하기
   console.log(datas) // postman 테스트할 때 body > raw > {} Object
