@@ -59,7 +59,7 @@ public class InfoController0203 {
     }
 
     // 2. 다음 과정 수행
-    char yoil = getYoilValue(myDate.getYear(), myDate.getMonth(), myDate.getDay());
+    char yoil = getYoilValue(myDate);
 
     // 3. Model에 작업 결과 저장 - 응답 화면 분리
     model.addAttribute("yoil", yoil);
@@ -160,11 +160,20 @@ public class InfoController0203 {
     // 각 월별 최대 일 수를 결정
     int maxDay;
     switch (month) {
-      case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+      case 1: 
+      case 3: 
+      case 5: 
+      case 7: 
+      case 8: 
+      case 10: 
+      case 12:
       maxDay = 31;
       break;
 
-      case 4: case 6: case 9: case 11:
+      case 4: 
+      case 6: 
+      case 9: 
+      case 11:
       maxDay = 30;
       break;
 

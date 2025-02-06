@@ -1,2 +1,10 @@
 server:
   port: 8000
+spring:
+  output:
+    ansi:
+      enabled: always
+  mvc:
+    view:
+      prefix: /WEB-INF/views0206/
+      suffix: .jsp

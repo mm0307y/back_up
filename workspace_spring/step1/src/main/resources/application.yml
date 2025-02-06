@@ -1,2 +1,17 @@
 server:
   port: 8000
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  mvc:
+    view:
+      prefix: /WEB-INF/views0206/
+      suffix: .jsp
+
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+    view-names: thymeleaf/*
+    cache: false

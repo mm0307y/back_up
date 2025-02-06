@@ -3,16 +3,22 @@ import HomePage0205 from "./components0205/pages0205/HomePage0205";
 import LoginPage0205 from "./components0205/auth0205/LoginPage0205";
 import NoticePager0205 from "./components0205/pages0205/NoticePager0205";
 import { useEffect } from "react";
-import { boardListDB } from "./service0205/dbLogic0205";
+import { boardDeleteDB, boardInsertDB, boardListDB } from "./service0205/dbLogic0205";
 
 const App = () => {
   useEffect(() => {
     const asyncDB = async () => {
-      const board = {
+      /* const board = {
         "gubun": null, // 제목 : b_title, 내용 : b_content, 작성자 : MEM_NICKNAME
         "keyword": null,
+      } */
+      // await boardListDB(board)
+      const doard = {
+        "b_title": "글제목", // 제목 : b_title, 내용 : b_content, 작성자 : MEM_NICKNAME
+        "b_content": "글내용",
+        "email": "abc@hot.com",
       }
-      await boardListDB(board)
+      await boardDeleteDB(1)
     }
     asyncDB()
   }, [])

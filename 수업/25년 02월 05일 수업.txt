@@ -4,9 +4,29 @@
 Spring Boot 기반으로 댓글형 게시판 구현해 보기
 POJO기반 & Spring 기반 비교하기
 
-workspace-board
+workspace_board
 Front-End : spring-board
+- http://localhost:3000
+
 Back-End : mve-board
+- http://localhost:8000
+
+스프링을 활용하여 Oracle 연동하기
+DB Server
+1524
+
+화면을 가진 서버 포트번호는 3000번
+제목으로 조건검색을 한다.
+조회버튼
+
+http://localhost:8000/api/board/boardList
+
+리엑트에서 버튼이 클릭되면 스프링프로젝트
+메서드 호출하기
+@RequestMapping("/board/boardList")
+
+package : com.example.demo
+Spring Application - MvcBoardApplication.java = main
 
 DB 설계 공유
 
