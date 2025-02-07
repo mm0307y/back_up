@@ -1,0 +1,35 @@
+2025년 02월 07일 수업 내용 정리
+
+프레임워크와 라이브러리 차이점
+제어구너을 누가 가지고 있습니까?
+제어권이 개발자에게 있다.
+제어권은 스프링이 갖게 하자.
+
+spring-beans.jar 안에 BeanFactory가 살고 있다. -> 빈을 관리해준다. - 라이브사이클 관리해준다.
+필요할 때 내가 주입해줄께. 뺏을 수도 있다.
+
+spring-context.jar -> ApplicationContext
+
+
+@Controller(페이지 - jsp) or @RestController(문자열 - React)
+
+ReBoardController.java
+
+@Service(모델계층, 클래스 이름 앞에 온다.)
+ReBoardLogic.java
+// 나는 직접 오라클과 연동하지 않을 거야.
+// 왜냐면 
+
+SportsCar myCar = new SportsCar();
+
+// 유연하다. 선언부에 추상클래스가 왔다. - 결정하지 마라
+// 선언부에 구체적인 클래스명을 적는 것은 주니어다.
+
+Car myCar = new SportsCar();
+Car myCar = new Truck();
+List<Map<String, Object>> list = new ArrayList<>();
+// 왜 extends 하지 않고 annotation을 쓰는가?
+// 상속은 결합도가 높다. - 메서드 오버라이딩 - 리턴타입 바꾸는거 안돼, 파라미터 못바꾼다며,
+
+@Repository
+ReBoardDao.java

@@ -1,5 +1,9 @@
+uploadPath:
+  D:\Java\workspace_board\mvc-board\src\main\webapp\pds0207\
 server:
   port: 8000
+  tomcat:    
+    additional-tld-skip-patterns: "*.jar"
 spring:
   output:
     ansi:
@@ -8,3 +12,26 @@ spring:
     view:
       prefix: /WEB-INF/views0206/
       suffix: .jsp
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+    view-names: thymeleaf/*
+    cache: false
+  datasource:
+    hikari:
+      jdbc-url: jdbc:oracle:thin:@127.0.0.1:1521/orcl11
+      username: scott
+      password: tiger
+      driver-class-name: oracle.jdbc.OracleDriver
+      connection-timeout: 20000
+      validation-timeout: 3000
+      minimum-idle: 5
+      maximum-pool-size: 12
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      auto-commit: true
+      pool-name: oraPool
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      enabled: true
