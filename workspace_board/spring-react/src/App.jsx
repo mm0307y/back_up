@@ -1,9 +1,12 @@
 import { Route, Routes } from "react-router";
 import HomePage0205 from "./components0205/pages0205/HomePage0205";
 import LoginPage0205 from "./components0205/auth0205/LoginPage0205";
-import NoticePager0205 from "./components0205/pages0205/NoticePager0205";
 import { useEffect } from "react";
-import { boardDeleteDB, boardInsertDB, boardListDB } from "./service0205/dbLogic0205";
+import { boardDeleteDB } from "./service0205/dbLogic0205";
+import ReBoardDBList0210 from "./components0205/reboard0210/ReBoardDBList0210";
+import ReBoardDBDetail0210 from "./components0205/reboard0210/ReBoardDBDetail0210";
+import ReBoardDBUpdate0210 from "./components0205/reboard0210/ReBoardDBUpdate0210";
+import ReBoardDBWrite0210 from "./components0205/reboard0210/ReBoardDBWrite0210";
 
 const App = () => {
   useEffect(() => {
@@ -27,7 +30,10 @@ const App = () => {
       <Routes>
         <Route path="/" exact={true} element={<HomePage0205 />} />
         <Route path="/login" exact={true} element={<LoginPage0205 />} />
-        <Route path="/notice/list" exact={true} element={<NoticePager0205 />} />
+        <Route path="/reboard" exact={true} element={<ReBoardDBList0210 />} />
+        <Route path="/reboard/:b_no" exact={true} element={<ReBoardDBDetail0210 />} />
+        <Route path="/reboard/update/:b_no" exact={true} element={<ReBoardDBUpdate0210 />} />
+        <Route path="/reboard/write" exact={true} element={<ReBoardDBWrite0210 />} />
       </Routes>
     </>
   );

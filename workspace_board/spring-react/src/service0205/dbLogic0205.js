@@ -1,5 +1,40 @@
 import axios from "axios";
 
+// 댓글 쓰기 구현
+export const reCommentInsertDB = (comment) => {
+  console.log(comment)
+  return new Promise((resolve, reject) => {
+    try {
+      const res = axios({
+        method: "post",
+        url: process.env.REACT_APP_SPRING_IP + "api/board/commentInsert",
+        data: comment
+      })
+      resolve(res)
+    } catch (error) {
+      reject(error)
+    }
+  });
+} // end of reCommentInsertDB
+
+// 댓글 수정 구현
+export const reCommentUpdateDB = (cmt) => {
+  // 사용자가 입력한 값을 출력해 보기
+  console.log(cmt)
+  return new Promise((resolve, reject) => {
+    try {
+      const res = axios({
+        method: "put",
+        url: process.env.REACT_APP_SPRING_IP + "api/board/commentUpdate",
+        data: cmt
+      })
+      resolve(res)
+    } catch (error) {
+      reject(error)
+    }
+  });
+} // end of reCommentUpdateDB
+
 // http://localhost:8000/api/board/boardList
 export const boardListDB = (board) => {
   // console.log(board) // [Object Object]
@@ -18,6 +53,22 @@ export const boardListDB = (board) => {
     } // end of try, catch
   });
 }; // end of boardListDB
+
+// 게시글 상세보기 구현
+export const boardDetailDB = (b_no) => {
+  console.log(b_no)
+  return new Promise((resolve, reject) => {
+    try {
+      const res = axios({
+        method: "get",
+        url: process.env.REACT_APP_SPRING_IP + "api/board/boardDetail.do?b_no=" + b_no,
+      });
+      resolve(res)
+    } catch (error) {
+      reject(error)
+    }
+  })
+} // end of boardDetailDB
 
 // http://localhost:8000/api/board/boardInsert
 export const boardInsertDB = (board) => {
@@ -71,3 +122,21 @@ export const boardDeleteDB = (b_no) => {
     } // end of try, catch
   });
 }; // end of boardDeleteDB
+
+export const uploadImageDB = (file) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: 'post',
+        url: process.env.REACT_APP_SPRING_IP+'api/board/imageUpload',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: file
+      })
+      resolve(response)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}

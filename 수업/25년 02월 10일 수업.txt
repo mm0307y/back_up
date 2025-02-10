@@ -1,0 +1,18 @@
+2025년 02월 10일 월요일 수업 정리
+
+의존성 주입 방법
+- xml 활용하기 -> maven방식 -> pom.xml
+생성자 객체 주입법은 xml문서에 작성한다.
+- xml로 관리하는 것은 어렵다.  -  Parsing, SAX Error
+- java 코드로 처리 -> struts1, struts2 어노테이션
+- spring2, spring2.5 어노테이션 등장, 부분적이다. spring3- 안정
+- spring4(절대 우위점한다.-레거시 - 더이상 서블릿이 필요가 없다.)
+-> 전자정부에서 스피링을 선택한다.
+@Autowired
+private XXXService xxService = null;
+
+두 클래스 관계가 있을 때 의존성 주집을 한다.
+
+
+- setter를 통한 의존성 주입 (getter읽기 - 논외) : 자바
+- 스프링의 Autowired등장하면서 setter주입법은 사용하지 않고 있따.
