@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.model0206.ReactBoard0206;
+
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -24,6 +26,26 @@ public class ReBoardDao0207 {
     List<Map<String, Object>> bList = null;
     bList = sessionTemplate.selectList("boardList", pmap);
     return bList;
+  }
+
+  public int boardInsert(ReactBoard0206 board) {
+    log.info("boardInsert 호츌");
+    int result = -1;
+    result = sessionTemplate.insert("boardInsert", board);
+    return result;
+  }
+
+  public void hitCount(Map<String, Object> pmap) {
+    log.info("hitCount호출 성공");
+    sessionTemplate.update("hitCount", pmap);
+  } // end of hitCount
+
+  public List<Map<String, Object>> commentList(Map<String, Object> pmap) {
+    log.info("commentList호출 성공");
+    List<Map<String, Object>> commList = null;
+    commList = sessionTemplate.selectList("commentList", pmap);
+    log.info(commList);
+    return commList;
   }
   
 }

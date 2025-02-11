@@ -1,13 +1,14 @@
 package com.example.demo.di3_0210;
 
-import com.example.demo.di1_0210.Car0210;
-import com.example.demo.di1_0210.Engine0210;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
+import com.example.demo.di1_0210.Car0210;
+import com.example.demo.di1_0210.Engine0210;
 
 public class ReflectionTest0210 {
   public static void main(String[] args) throws Exception {
@@ -25,13 +26,13 @@ public class ReflectionTest0210 {
     // 2. 클래스에서 선언된 멤버변수 (field)와 method 목록 얻기 (상위 클래스 메서드 목록)
     Field[] mvArr = carClass.getDeclaredFields();
     for (Field f : mvArr) {
-      System.out.println(f);
+      System.out.println(f.getName());
     }
     Method[] methArr = carClass.getMethods();
     for (Method mt : methArr) {
       System.out.println(mt.getName());
     }
-    System.out.println("=========================================");
+    System.out.println("================================");
 
     Method[] methArr2 = carClass.getDeclaredMethods();
     for (Method mt : methArr2) {
@@ -43,7 +44,7 @@ public class ReflectionTest0210 {
     System.out.println(method);
     System.out.println("car : " + car);
 
-    // 3. 멤버변수에 set을 붙여서  setter 호출하기
+    // 3. 멤버변수에 set을 붙여서 setter호출하기
     for (Field mv : mvArr) {
       System.out.println(mv);
       String methodName = "set" + StringUtils.capitalize(mv.getName());
@@ -63,5 +64,5 @@ public class ReflectionTest0210 {
         }
       }
     } // end of for
-  } // end od main
+  } // end of main
 }

@@ -2,9 +2,9 @@ import React, { useCallback, useRef, useState } from 'react'
 import Header0205 from "../include0205/Header0205";
 import { BButton, ContainerDiv, FormDiv, HeaderDiv } from '../../styles0210/FormStyles'
 import { useNavigate } from 'react-router'
+import Footer0205 from "../include0205/Footer0205";
 import { boardInsertDB } from '../../service0205/dbLogic0205'
 import ReQuillEditor0210 from './ReQuillEditor0210'
-import Footer0205 from "../include0205/Footer0205";
 
 const ReBoardDBWrite0210 = () => {
   const navigate = useNavigate()
@@ -16,24 +16,26 @@ const ReBoardDBWrite0210 = () => {
   const [content, setContent] = useState('')
   const [email, setEmail] = useState(() => {
     // localStorage에서 초기값을 가져온다.
-    return localStorage.getItem("email") || "";
+    return localStorage.getItem("email") || '';
   })
 
+  // 상태가 변할 때 마다 함수가 새로 만들어지는 것을 방지하기 위해 useCallback훅을 사용하여
+  // 함수를 메모이제이션 처리함.
   const handleTitle = useCallback((e) => {
     setTitle(e)
-  }, [])
+  })
 
   const handleContent = useCallback((e) => {
     setContent(e) // 훅 상태값이 변한다. -> 변할 때 마다 ReBoardWrite()호출된다. -> 그 때마다 함수도 새로 생성된다.
-  }, [])
+  })
 
   const handleEmail = useCallback((e) => {
     setEmail(e)
-  }, [])
+  })
 
   // 글쓰기 요청시 호출될 함수 구현
   const boardInsert = async () => {
-    if (title.trim() === "|| content.rim()===") {
+    if (title.trim() === "|| content.trim()===") {
       alert("게시글이 작성되지 않았습니다.")
       return;
     }

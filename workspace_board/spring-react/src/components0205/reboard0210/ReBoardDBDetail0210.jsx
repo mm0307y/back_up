@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import Header0205 from "../include0205/Header0205";
 import { BButton, CommentArea, ContainerDiv, FormDiv, HeaderDiv } from '../../styles0210/FormStyles'
+import Footer0205 from "../include0205/Footer0205";
 import ReBoardHeader0210 from './ReBoardHeader0210'
 import { useParams } from 'react-router'
 import { boardDetailDB, reCommentInsertDB, reCommentUpdateDB } from '../../service0205/dbLogic0205'
-import Header0205 from "../include0205/Header0205";
-import Footer0205 from "../include0205/Footer0205";
 
 // 게시글 상세보기 - 댓글보기와 댓글 쓰기 화면 포함한다.
 const ReBoardDBDetail0210 = () => {
+  // 상세보기 이므로 한 건에 대한 조회 결과 이다.
   const { b_no } = useParams()
   console.log("b_no : " + b_no)
+  
+  // ? 쿼리스트링을 가져오는 코드 : 페이징 처리 (현재 페이지 정보 기억)
+  // location 앞에 window가 상위 객체이다. - 카카오 -> global참조
   const queryParams = new URLSearchParams(window.location.search)
 
   // 만일 page 값이 null 이거나 undefined 일 때 1반환
@@ -18,9 +22,10 @@ const ReBoardDBDetail0210 = () => {
   // 댓글 내용을 담을 훅
   const [comment, setComment] = useState();
 
-  // 한 건조회한 결과를 담을 훅
+  // 한 건조회한 결과를 담을 훅 - 훅이 변하면 화면을 다시 랜더링한다. = SPA(싱글페이지 애플리케이션) - a 태그(URL이 끊기고 새롭게 랜더링을 하기 때문에 안된다.)
+  // 이른, 게으른 한 번 생각해 보기 -> location.href 사용하면 SPA가 아니다.
   const [board, setBoard] = useState({
-    B_NO: 0,
+    B_NO: 0, // DB에서 가져온 값을 담는 변수 - 대문자 인 이유는 myBatis 디폴트 값이다. toUppercase
     B_TITLE: "",
     EMAIL: "",
     B_CONTENT: "",
@@ -35,7 +40,7 @@ const ReBoardDBDetail0210 = () => {
   useEffect(() => {
     const boardDetail = async () => {
       const res = await boardDetailDB(b_no)
-      console.log(res.data) // [{}, COMMENT : [{}, {}, {}, ...]]
+      console.log(res.data) // [{}, comments : [{}, {}, {}, ...]]
       setBoard(res.data[0])
 
       // 댓글이 존재 할 경우만 훅에 초기화
@@ -81,6 +86,7 @@ const ReBoardDBDetail0210 = () => {
         <FormDiv>
           <ReBoardHeader0210 board={board} b_no={b_no} page={page} />
           <section>
+            {/* QuillEditor 사용하면 <p></p> */}
             <div dangerouslySetInnerHTML={{ __html: board.B_CONTENT }}></div>
           </section>
           <hr style={{ height: "2px" }} />
@@ -96,6 +102,7 @@ const ReBoardDBDetail0210 = () => {
           <hr style={{ height: "2px" }} />
           {/* 댓글 목록 보기 */}
           <div>
+            {/* 댓글이 존재하지 않으면 undefined */}
             {comments && comments.map((item, index) => {
               <div key={index}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>

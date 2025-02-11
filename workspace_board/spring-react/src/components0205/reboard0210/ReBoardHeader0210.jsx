@@ -10,7 +10,7 @@ const ReBoardHeader0210 = ({ board, b_no, page }) => {
   // 리액트에서는 state가 변하면 새로 렌더링 한다.
   useEffect(() => {
     setBhit(board.B_HIT);
-  }, [board]);
+  }, [board])
 
   const boardDelete = async () => {
     await boardDeleteDB(b_no)

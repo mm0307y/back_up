@@ -1,31 +1,38 @@
 import React, { useCallback, useMemo } from 'react'
-import ReactQuill from 'react-quill-new'
+import ReactQuill from 'react-quill';
 import { uploadImageDB } from '../../service0205/dbLogic0205'
+// import { ImageResize } from 'quill-image-resize-module-react';
+// Quill.register('modules/ImageResize', ImageResize);
+
 // QuillEditor는 b_content랑 관계가 있다. - 색상, 이미지 처리, 들여쓰기 등등 이지웍
 // select로 조회한 결과에 b_content부분에 대한 값을 props로 받는다. - value
 // spring을 활용한 파일 추가와 이미지 추가 처리
 const ReQuillEditor0210 = ({value, handleContent, quillRef}) => {
+
   const imageHandler = useCallback(() => {
-      // 이미지 파일이 있을 때 호출
-      /* 이미지를 선택하고 열기를 눌렀을 때 생성되는 DOM입니다. */
+      /* 이미지를 선택하고 열기를 눌렀을 때 생성되는 DOM입니다, 이미지 파일이 있을 때 호출 */
+      /* 리액트에서는 html에서와 같이 form태그 전송이 불가하다. */
       const formData = new FormData() // 이미지를 url로 바꾸기 위해서 express서버의 uploads 폴더로 전달할 폼데이터 만들기
+
+      // 이미지 버튼이 클릭되면 이미지를 서버로 전송하기 위해서 동적으로 type이 file인 input태그를 생성한다.
       const input = document.createElement('input') // input태그를 DOM API를 활용하여 동적으로 생성하기
+      // <input type="file" 'accept="image/png'
       input.setAttribute('type', 'file')
       input.setAttribute('accept', 'image/*') // 이미지 파일만 선택가능하도록(받기 위해 main type은 image) 제한한다.
       input.setAttribute('name', 'image')
-      input.click()
+      input.click() // input file의 클릭이 발생하도록 강제한다.
   
       /* 선택한 파일의 type이 file이다. */
-      // 파일 선택 창에서 이미지를 선택하면 실행될 콜백 함수를 등록한다.
+      // 파일 선택창에서 이미지를 선택하면 실행될 콜백 함수를 등록한다.
       input.onchange = async () => {
         try {
           const file = input.files[0]
           if (!file) {
             alert("파일이 선택되지 않았습니다.")
-            return;
+            return; // 함수 탈출
           }
           // 이미지는 jpg, png, jpeg만 지원한다.
-          const fileType = file.name.split('.').pop().toUpperCase()
+          const fileType = file.name.split('.').pop().toUpperCase() // PNG
           console.log(fileType) // PGN, JPG, JPEG
   
           // 파일 확장자 검증 코드가 필요하다.
@@ -78,7 +85,7 @@ const ReQuillEditor0210 = ({value, handleContent, quillRef}) => {
           quill.clipboard.dangerouslyPasteHTML(
             range,
             `<img src=${url} style="width: 100%;height: auto;" alt="image" />`)
-          // handleFiles(res.data, `${Math.floor(file.size/(1024*1024)*10)/10}MB)
+          // handleFiles(res.data, `${Math.floor(file.size/(1024*1024)*10)/10}MB`)
         }
         catch (error) {
           console.error("이미지 업로드 중 오류 발생 : ", error)
@@ -109,9 +116,6 @@ const ReQuillEditor0210 = ({value, handleContent, quillRef}) => {
             image: imageHandler,
           },
         },
-        ImageResize: {
-          modules: ['Resize']
-        }
       }), [imageHandler])
     const formats = [
       //'font',

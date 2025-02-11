@@ -14,7 +14,7 @@ export const reCommentInsertDB = (comment) => {
     } catch (error) {
       reject(error)
     }
-  });
+  })
 } // end of reCommentInsertDB
 
 // 댓글 수정 구현
@@ -32,7 +32,7 @@ export const reCommentUpdateDB = (cmt) => {
     } catch (error) {
       reject(error)
     }
-  });
+  })
 } // end of reCommentUpdateDB
 
 // http://localhost:8000/api/board/boardList
@@ -44,7 +44,7 @@ export const boardListDB = (board) => {
       const res = axios({
         method: "get",
         url: process.env.REACT_APP_SPRING_IP + "api/board/boardList",
-        params: board,
+        params: board
       })
       // 스프링에서 응답이 성공적으로 나오면 - 200OK
       resolve(res)
@@ -61,7 +61,10 @@ export const boardDetailDB = (b_no) => {
     try {
       const res = axios({
         method: "get",
-        url: process.env.REACT_APP_SPRING_IP + "api/board/boardDetail.do?b_no=" + b_no,
+        // REACT_APP_SPRING_IP=http://localhost:8000/
+        // @RequestMapping("/api/*") - CORS 이슈 해결하기 위한 접두어
+        // GetMapping("board/boardDetail")
+        url: process.env.REACT_APP_SPRING_IP + "api/board/boardDetail?b_no=" + b_no,
       });
       resolve(res)
     } catch (error) {
@@ -72,7 +75,8 @@ export const boardDetailDB = (b_no) => {
 
 // http://localhost:8000/api/board/boardInsert
 export const boardInsertDB = (board) => {
-  console.log(board)
+  // console.log(board) // [Object Object]
+  console.log(JSON.stringify(board)) // JSON.stringify(), JSON.parse()
   return new Promise((resolve, reject) => {
     try {
       const res = axios({
@@ -90,7 +94,8 @@ export const boardInsertDB = (board) => {
 
 // http://localhost:8000/api/board/boardUpdate
 export const boardUpdateDB = (board) => {
-  console.log(board)
+  // console.log(board) // [Object Object]
+  console.log(JSON.stringify(board)) // JSON.stringify(), JSON.parse()
   return new Promise((resolve, reject) => {
     try {
       const res = axios({
@@ -108,7 +113,8 @@ export const boardUpdateDB = (board) => {
 
 // http://localhost:8000/api/board/boardDelete?b_no=
 export const boardDeleteDB = (b_no) => {
-  console.log(b_no)
+  // console.log(board) // [Object Object]
+  console.log(b_no) // JSON.stringify(), JSON.parse()
   return new Promise((resolve, reject) => {
     try {
       const res = axios({
@@ -123,7 +129,9 @@ export const boardDeleteDB = (b_no) => {
   });
 }; // end of boardDeleteDB
 
+// 이미지 업로드
 export const uploadImageDB = (file) => {
+  console.log(file)
   return new Promise((resolve, reject) => {
     try {
       const response = axios({
@@ -132,6 +140,8 @@ export const uploadImageDB = (file) => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        processData: false,
+        contentType: false,
         data: file
       })
       resolve(response)

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.logic0207.ReBoardLogic0207;
 import com.example.demo.model0206.ReactBoard0206;
@@ -34,6 +35,23 @@ public class ReBoardController0205 {
   @Autowired
   private ReBoardLogic0207 reBoardLogic = null; // 선언만 한다. 그러면 ApplicationContext가 관리해준다.
   // 필요할 때 주입해준다.()
+
+  /////////////////////////////// Quill Editor을 사용하여 이미지 처리하기 구현 ///////////////////////////////
+  @PostMapping("board/imageUpload")
+  public String imageUpload(@RequestParam(value = "image") MultipartFile image) {
+    String filename = reBoardLogic.imageUpload(image);
+    return filename;
+  }
+
+  @GetMapping("board/imageGet")
+  public byte[] imageGet(@RequestParam(value = "imageName") String imageName) {
+    log.info("filename : " + imageName);
+    byte[] fileArray = reBoardLogic.imageGet(imageName);
+    return fileArray;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////
+
   /********************************************************************************************
    * 게시글 목록 조회 구현하기 - search | select | where | GET
    * URL매핑 이름 : boardList
@@ -50,8 +68,26 @@ public class ReBoardController0205 {
   } // end of boardList
 
   /********************************************************************************************
+   * 게시글 상세 조회 구현하기 - search | select | where | GET
+   * URL매핑 이름 : boardDetail
+   *********************************************************************************************/
+  @GetMapping("board/boardDetail")
+  public String boardDetail(@RequestParam Map<String, Object> pmap) {
+    log.info("boardDetail호출 성공");
+    List<Map<String, Object>> bList = null;
+
+    // 전체 조회와 다른 부분이 조회수 업데이트 처리하기 + 댓글이 있을 때 포함시키기
+    bList = reBoardLogic.boardDetail(pmap);
+    Gson g = new Gson();
+    String temp = null;
+    temp = g.toJson(bList);
+    return temp;
+  } // end of boardDetail
+
+  /********************************************************************************************
    * 게시글 등록 구현하기 - param(@Request) | insert | POST | GET
    * URL매핑 이름 : boardInsert
+   * 
    * @return 1이면 등록 성공, 0이면 등록 실패
    *********************************************************************************************/
   @PostMapping("board/boardInsert")
@@ -59,6 +95,7 @@ public class ReBoardController0205 {
     log.info("boardInsert호출 성공");
     log.info(board);
     int result = -1; // 초기값을 -1로 한 이유는 0과 1이 의미있는 숫자이다.
+    result = reBoardLogic.boardInsert(board);
     return "" + result;
   }
 
@@ -81,6 +118,6 @@ public class ReBoardController0205 {
   public String boardDelete() {
     log.info("boardDelete호출 성공");
     int result = -1; // 초기값을 -1로 한 이유는 0과 1이 의미있는 숫자이다.
-    return "" + result; //"-1"
+    return "" + result; // "-1"
   }
 }
