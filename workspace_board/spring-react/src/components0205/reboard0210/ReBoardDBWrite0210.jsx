@@ -4,7 +4,10 @@ import { BButton, ContainerDiv, FormDiv, HeaderDiv } from '../../styles0210/Form
 import { useNavigate } from 'react-router'
 import Footer0205 from "../include0205/Footer0205";
 import { boardInsertDB } from '../../service0205/dbLogic0205'
-import ReQuillEditor0210 from './ReQuillEditor0210'
+import QuillEditor0211 from './QuillEditor0211';
+/* 
+
+*/
 
 const ReBoardDBWrite0210 = () => {
   const navigate = useNavigate()
@@ -22,16 +25,16 @@ const ReBoardDBWrite0210 = () => {
   // 상태가 변할 때 마다 함수가 새로 만들어지는 것을 방지하기 위해 useCallback훅을 사용하여
   // 함수를 메모이제이션 처리함.
   const handleTitle = useCallback((e) => {
-    setTitle(e)
-  })
+    setTitle(e) // useState 훅이 변한다. -> ReBoardWrite함수가 새로 생성된다.
+  }, []) // 의존성 배열이 빈깡통이면 최초 한번만 적용된다. x
 
   const handleContent = useCallback((e) => {
     setContent(e) // 훅 상태값이 변한다. -> 변할 때 마다 ReBoardWrite()호출된다. -> 그 때마다 함수도 새로 생성된다.
-  })
+  }, [])
 
   const handleEmail = useCallback((e) => {
     setEmail(e)
-  })
+  }, [])
 
   // 글쓰기 요청시 호출될 함수 구현
   const boardInsert = async () => {
@@ -75,7 +78,7 @@ const ReBoardDBWrite0210 = () => {
               style={{ width: "200px", height: '40px', border: '1px solid lightGray' }} value={email} onChange={(e) => { handleEmail(e.target.value) }} />
             <hr style={{ margin: '10px 0px 10px 0px' }} />
             <h3>상세내용</h3>
-            <ReQuillEditor0210 value={content} handleContent={handleContent} quillRef={quillRef} />
+            <QuillEditor0211 value={content} handleContent={handleContent} quillRef={quillRef} />
           </div>
         </FormDiv>
       </ContainerDiv>

@@ -10,7 +10,7 @@ import { boardDetailDB, reCommentInsertDB, reCommentUpdateDB } from '../../servi
 const ReBoardDBDetail0210 = () => {
   // 상세보기 이므로 한 건에 대한 조회 결과 이다.
   const { b_no } = useParams()
-  console.log("b_no : " + b_no)
+  console.log("b_no : " + b_no) // 1번 혹은 9번
   
   // ? 쿼리스트링을 가져오는 코드 : 페이징 처리 (현재 페이지 정보 기억)
   // location 앞에 window가 상위 객체이다. - 카카오 -> global참조
@@ -56,7 +56,7 @@ const ReBoardDBDetail0210 = () => {
     const cmt = {
       b_no: b_no,
       email: localStorage.getItem("email"),
-      bc_comment: comment,
+      bc_comment: comment
     }
     await reCommentInsertDB(cmt)
     console.log("댓글이 등록 되었습니다.")

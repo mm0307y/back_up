@@ -7,7 +7,12 @@ import { uploadImageDB } from '../../service0205/dbLogic0205'
 // QuillEditor는 b_content랑 관계가 있다. - 색상, 이미지 처리, 들여쓰기 등등 이지웍
 // select로 조회한 결과에 b_content부분에 대한 값을 props로 받는다. - value
 // spring을 활용한 파일 추가와 이미지 추가 처리
-const ReQuillEditor0210 = ({value, handleContent, quillRef}) => {
+const QuillEditor0211 = ({value, handleContent, quillRef}) => {
+  // QuillEditor에서 이미지를 누르면 호출되는 함수
+  // 내용을 작성하고 내용이 변경될 때 마다 상태값이 바뀌면 화면을 새로 렌더링한다. - useState
+  // 같은 역할을 수행하는 imageHandler함수가 매번 새로 만들어진다.
+  // 리액트에서는 재조정이라고 한다. - useMemo(필드를 메모이제이션한다.), useCallback(함수를 메모이제이션한다.)
+  // 함수 하나만 생성해서 그 함수로 사용하기 위해서 useCallback() 사용하였다.
 
   const imageHandler = useCallback(() => {
       /* 이미지를 선택하고 열기를 눌렀을 때 생성되는 DOM입니다, 이미지 파일이 있을 때 호출 */
@@ -15,8 +20,11 @@ const ReQuillEditor0210 = ({value, handleContent, quillRef}) => {
       const formData = new FormData() // 이미지를 url로 바꾸기 위해서 express서버의 uploads 폴더로 전달할 폼데이터 만들기
 
       // 이미지 버튼이 클릭되면 이미지를 서버로 전송하기 위해서 동적으로 type이 file인 input태그를 생성한다.
-      const input = document.createElement('input') // input태그를 DOM API를 활용하여 동적으로 생성하기
-      // <input type="file" 'accept="image/png'
+      const input = document.createElement('input') // input태그를 DOM API를 활용하여 동적으로 생성하기 - 자바 스크립트 사용한다. - DOM API
+      // 8000번으로 요청을 보낸다.
+      // @PostMapping("board/imageUpload")
+      // public String imageUpload(@RequestParam(value = "image") MultipartFile image) {
+      // <input type="file" 'accept="image/png' name="image"
       input.setAttribute('type', 'file')
       input.setAttribute('accept', 'image/*') // 이미지 파일만 선택가능하도록(받기 위해 main type은 image) 제한한다.
       input.setAttribute('name', 'image')
@@ -41,7 +49,7 @@ const ReQuillEditor0210 = ({value, handleContent, quillRef}) => {
             return;
           }
   
-          formData.append('file', file) // 동적으로 만드는 폼 데이터에 이미지 추가
+          formData.append('image', file) // 위에서 동적으로 만드는 폼 데이터에 이미지 추가 400 Bad Request
           for (let pair of formData.entries()) {
             console.log(pair[0], pair[1])
           }
@@ -57,8 +65,8 @@ const ReQuillEditor0210 = ({value, handleContent, quillRef}) => {
           }
   
           // 이미지 URL생성
-          const url = `${process.env.REACT_APP_SPRING_IP}${res.data}`;
-          console.log(`Uploaded Image URL: ${url}`)
+          const url = `${process.env.REACT_APP_SPRING_IP}api/board/imageGet?imageName=${res.data}`;
+          console.log(`Uploaded Image URL: ${url}`);
           const quill = quillRef.current.getEditor()
   
           /* ReactQuill 노드에 대한 Ref가 있어야 메서드들을 호출할 수 있으므로
@@ -91,8 +99,8 @@ const ReQuillEditor0210 = ({value, handleContent, quillRef}) => {
           console.error("이미지 업로드 중 오류 발생 : ", error)
           alert("이미지 업로드 중 오류가 발생하였습니다.")
         }
-      } //// end of onchange event, 주어진 인덱스에 HTML로 작성된 내용물을 에디터에 삽입한다.
-    }, [quillRef]) //// end of imageHandler
+      } // end of onchange event, 주어진 인덱스에 HTML로 작성된 내용물을 에디터에 삽입한다.
+    }, [quillRef]) // end of imageHandler
   
     // 메모이제이션 이란?
     // 변수 - useMemo
@@ -139,4 +147,4 @@ const ReQuillEditor0210 = ({value, handleContent, quillRef}) => {
     )
 }
 
-export default ReQuillEditor0210
+export default QuillEditor0211

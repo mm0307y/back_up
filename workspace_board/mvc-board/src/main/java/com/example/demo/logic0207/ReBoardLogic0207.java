@@ -35,7 +35,7 @@ public class ReBoardLogic0207 {
 
   public String imageUpload(MultipartFile image) {
     Map<String, Object> pmap = new HashMap<>();
-    String savePath = "D:\\Java\\workspace_board\\mvc-board\\src\\main\\webapp\\pds0207\\";
+    String savePath = "D:\\Java\\workspace_board\\mvc-board\\src\\main\\webapp\\pds0207";
     String fileName = null;
     String fullPath = null;
 
@@ -45,17 +45,19 @@ public class ReBoardLogic0207 {
       SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
       Calendar time = Calendar.getInstance();
       fileName = sdf.format(time.getTime()) + "-" + image.getOriginalFilename().replaceAll("", "");
-      fullPath = savePath + fileName;
+      fullPath = savePath + "\\" + fileName;
 
       try {
         // file명을 클래스로 만들어 주는 클래스 File - 파일이름을 객체화 될 뿐 내용은 없다.
-        File file = new File(fullPath);
-        byte[] bytes = image.getBytes();
+        File file = new File(fullPath); // 여기서 만들어진 파일은 이름만 존재하고 내용은 깡통
+        // 이미지 파일은 메모장으로 볼 수 없다. - 왜냐면 문자와 숫자로 되어 있는 바이너리 파일이라서...
+        byte[] bytes = image.getBytes(); // 스프링에서 3000번 서버에 요청으로 파일 내용을 읽기
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-        bos.write(bytes);
-        bos.close();
+        bos.write(bytes); // 이미지 파일 안에 바이너리 코드를 채운다.
+        bos.close(); // IO는 누수가 되지 않도록, 인터셉트 당하지 않도록 닫아준다.
 
-        // 파일 처리하는 경우 - 추가 파일 정보가 필요할 때
+        // 파일 처리하는 경우 - 추가 파일 정보가 필요할 때 - 배제
+        // 파일 크기
         double size = Math.floor(file.length() / (1024.0 * 1024.0) * 10) / 10;
         log.info("size : " + size);
         pmap.put("file_name", fileName);

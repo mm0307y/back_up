@@ -1,5 +1,7 @@
 package com.example.demo.controller0205;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +20,9 @@ import com.example.demo.logic0207.ReBoardLogic0207;
 import com.example.demo.model0206.ReactBoard0206;
 import com.google.gson.Gson;
 
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 
 // 선택하기
@@ -37,18 +42,62 @@ public class ReBoardController0205 {
   // 필요할 때 주입해준다.()
 
   /////////////////////////////// Quill Editor을 사용하여 이미지 처리하기 구현 ///////////////////////////////
+  // Quill Editor에서 이미지를 선택하면 <input type = 'file' name='image'
+  // 누가 webapp/pds0207 아래의 폴더에 파일이 생성됨.
   @PostMapping("board/imageUpload")
   public String imageUpload(@RequestParam(value = "image") MultipartFile image) {
     String filename = reBoardLogic.imageUpload(image);
     return filename;
   }
 
-  @GetMapping("board/imageGet")
-  public byte[] imageGet(@RequestParam(value = "imageName") String imageName) {
-    log.info("filename : " + imageName);
-    byte[] fileArray = reBoardLogic.imageGet(imageName);
-    return fileArray;
-  }
+    @GetMapping("board/imageGet")
+    public String imageGet(HttpServletRequest req, HttpServletResponse res) {
+        String b_file = req.getParameter("imageName");
+        log.info("imageGet 호출 성공===>"+b_file);
+        String filePath ="D:\\Java\\workspace_board\\mvc-board\\src\\main\\webapp\\pds0207"; // 절대경로.
+        //String filePath ="upload"; // 절대경로.
+        String fname = b_file;
+        log.info("b_file: 8->euc"+b_file);
+        File file = new File(filePath,b_file.trim());
+        String mimeType = req.getServletContext().getMimeType(file.toString());
+
+        // 브라우저는 모르는 mime type에 대해서는 다운로드 처리한다.
+        // 보통 브라우저가 인지하는 ppt, xsl, word 확장자 파일도 강제로 다운로드 처리하고싶을 때
+        // application/octet-stream 를 마임타입으로 사용한다.
+        if(mimeType == null){
+          // 강제로 이미지가 다운로드 되도록 처리한다.
+            res.setContentType("application/octet-stream");
+        }
+        String downName = null;
+        FileInputStream fis = null;
+        ServletOutputStream sos = null;
+        try{
+            if(req.getHeader("user-agent").indexOf("MSIE")==-1){
+                downName = new String(b_file.getBytes("UTF-8"),"8859_1");
+            }else{
+                downName = new String(b_file.getBytes("EUC-KR"),"8859_1");
+            }
+            res.setHeader("Content-Disposition", "attachment;filename="+downName);
+            fis = new FileInputStream(file);
+            sos = res.getOutputStream();
+            byte b[] = new byte[1024*10];
+            int data = 0;
+            while((data=(fis.read(b,0,b.length)))!=-1){
+                sos.write(b,0,data);
+            }
+            sos.flush();
+        }catch(Exception e){
+            log.info(e.toString());
+        }finally{
+            try {
+                if(sos != null) sos.close();
+                if(fis != null) fis.close();
+            } catch (Exception e2) {
+                // TODO: handle exception
+            }
+        }
+        return null;
+    }// end of imageGet
 
   /////////////////////////////////////////////////////////////////////////////////////////////
 
